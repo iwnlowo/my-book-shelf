@@ -2513,7 +2513,112 @@ function openReadingDetail(
   );
 
 }
+/* =====================================================
+   今天讀什麼
+===================================================== */
 
+function createRandomBookButton() {
+
+  const readingListPage =
+    document.getElementById("readingList");
+
+  if (!readingListPage) {
+    return;
+  }
+
+  if (
+    document.getElementById("randomBookButton")
+  ) {
+    return;
+  }
+
+  const button =
+    document.createElement("button");
+
+  button.id =
+    "randomBookButton";
+
+  button.className =
+    "add-button";
+
+  button.type =
+    "button";
+
+  button.textContent =
+    "🎲 今天讀什麼？";
+
+  button.addEventListener(
+    "click",
+    function() {
+
+      const allBooks = [];
+
+      readingCategories.forEach(
+        function(category, categoryIndex) {
+
+          category.books.forEach(
+            function(book, bookIndex) {
+
+              allBooks.push({
+
+                categoryIndex:
+                  categoryIndex,
+
+                bookIndex:
+                  bookIndex
+
+              });
+
+            }
+          );
+
+        }
+      );
+
+      if (allBooks.length === 0) {
+
+        alert(
+          "目前沒有待閱書籍。"
+        );
+
+        return;
+
+      }
+
+      const randomIndex =
+        Math.floor(
+          Math.random() *
+          allBooks.length
+        );
+
+      const selected =
+        allBooks[randomIndex];
+
+      openReadingDetail(
+        selected.categoryIndex,
+        selected.bookIndex
+      );
+
+    }
+  );
+
+
+  const title =
+    readingListPage.querySelector("h1");
+
+  if (title) {
+
+    title.insertAdjacentElement(
+      "afterend",
+      button
+    );
+
+  }
+
+}
+
+
+createRandomBookButton();
 
 /* =====================================================
    啟動
@@ -2522,5 +2627,131 @@ function openReadingDetail(
 displayBooks();
 
 displayReadingList();
+
+/* =====================================================
+   今天讀什麼｜建立按鈕
+===================================================== */
+
+const readingListPage =
+  document.getElementById("readingList");
+
+
+if (readingListPage) {
+
+  const randomButton =
+    document.createElement("button");
+
+  randomButton.id =
+    "randomBookButton";
+
+  randomButton.className =
+    "add-button";
+
+  randomButton.type =
+    "button";
+
+  randomButton.textContent =
+    "🎲 今天讀什麼？";
+
+
+  const readingListTitle =
+    readingListPage.querySelector("h1");
+
+
+  if (readingListTitle) {
+
+    readingListTitle.insertAdjacentElement(
+      "afterend",
+      randomButton
+    );
+
+  }
+
+}
+/* =====================================================
+   今天讀什麼｜隨機抽書
+===================================================== */
+
+document
+  .getElementById("randomBookButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      if (
+        !readingCategories ||
+        readingCategories.length === 0
+      ) {
+
+        alert("目前沒有待閱書籍。");
+
+        return;
+
+      }
+
+
+      const allBooks = [];
+
+
+      readingCategories.forEach(
+        function(category, categoryIndex) {
+
+          category.books.forEach(
+            function(book, bookIndex) {
+
+              allBooks.push({
+
+                categoryIndex:
+                  categoryIndex,
+
+                bookIndex:
+                  bookIndex,
+
+                category:
+                  category.title,
+
+                title:
+                  book[0],
+
+                author:
+                  book[1] || ""
+
+              });
+
+            }
+          );
+
+        }
+      );
+
+
+      if (allBooks.length === 0) {
+
+        alert("目前沒有待閱書籍。");
+
+        return;
+
+      }
+
+
+      const randomIndex =
+        Math.floor(
+          Math.random() *
+          allBooks.length
+        );
+
+
+      const selected =
+        allBooks[randomIndex];
+
+
+      openReadingDetail(
+        selected.categoryIndex,
+        selected.bookIndex
+      );
+
+    }
+  );
+
 
 </script>
