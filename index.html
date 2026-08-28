@@ -28,7 +28,7 @@ button,
 input,
 textarea,
 select {
-  font-family: inherit;
+  font: inherit;
 }
 
 button {
@@ -36,9 +36,10 @@ button {
 }
 
 .container {
+  width: 100%;
   max-width: 720px;
   margin: auto;
-  padding: 24px 16px 60px;
+  padding: 20px 16px 60px;
 }
 
 /* =========================
@@ -59,46 +60,54 @@ button {
 
 .home {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 30px;
 }
 
 .mascot {
-  font-size: 88px;
-  margin-top: 10px;
-  margin-bottom: 8px;
+  width: 150px;
+  height: 150px;
+  margin: 10px auto 18px;
+  border-radius: 50%;
+  background: #ffdce8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 82px;
+  box-shadow: 0 8px 25px rgba(200,120,150,0.12);
 }
 
 .welcome {
-  font-size: 26px;
+  font-size: 27px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
 .quote {
-  color: #a49b9f;
+  color: #9d8f95;
+  line-height: 1.8;
   margin-bottom: 32px;
 }
 
 .menu {
   display: grid;
-  gap: 14px;
-  text-align: left;
+  gap: 13px;
 }
 
 .menu-button {
-  background: white;
+  width: 100%;
   border: none;
+  background: white;
   border-radius: 20px;
-  padding: 21px;
-  font-size: 18px;
+  padding: 19px 20px;
+  text-align: left;
   color: #4b4548;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
   transition: 0.2s;
 }
 
 .menu-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 7px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 7px 20px rgba(0,0,0,0.08);
 }
 
 .menu-icon {
@@ -106,13 +115,34 @@ button {
   margin-right: 10px;
 }
 
+.menu-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.menu-description {
+  display: block;
+  margin-left: 42px;
+  margin-top: 4px;
+  color: #aaa;
+  font-size: 13px;
+}
+
 /* =========================
-   標題
+   共用
 ========================= */
+
+.back-button {
+  border: 1px solid #eee;
+  background: white;
+  border-radius: 12px;
+  padding: 9px 14px;
+  margin-bottom: 18px;
+}
 
 h1 {
   text-align: center;
-  margin: 10px 0 25px;
+  margin: 10px 0 24px;
 }
 
 h2 {
@@ -120,61 +150,43 @@ h2 {
 }
 
 h3 {
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
-/* =========================
-   按鈕
-========================= */
-
-.back-button {
+.card {
   background: white;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 10px 14px;
-  color: #555;
-}
-
-.add-button {
-  width: 100%;
-  background: #4b4548;
-  color: white;
-  border: none;
-  border-radius: 14px;
-  padding: 15px;
-  font-size: 16px;
-  margin-bottom: 20px;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.045);
 }
 
 .primary-button {
-  background: #4b4548;
-  color: white;
+  width: 100%;
   border: none;
-  border-radius: 10px;
-  padding: 10px 14px;
+  border-radius: 14px;
+  padding: 14px;
+  background: #555054;
+  color: white;
+  margin-bottom: 15px;
 }
 
 .secondary-button {
-  background: #eee;
-  color: #555;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 14px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 11px;
+  padding: 9px 13px;
 }
 
-.edit-button {
-  background: #4b4548;
-  color: white;
+.danger-button {
   border: none;
-  border-radius: 10px;
-  padding: 8px 12px;
+  background: #f1eeee;
+  border-radius: 11px;
+  padding: 9px 13px;
 }
 
-.delete-button {
-  background: #eee;
-  border: none;
-  border-radius: 10px;
-  padding: 8px 12px;
+.hidden {
+  display: none !important;
 }
 
 /* =========================
@@ -183,31 +195,32 @@ h3 {
 
 .form {
   background: white;
-  padding: 20px;
   border-radius: 18px;
+  padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.04);
 }
 
-.hidden {
-  display: none !important;
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #777;
 }
 
 input,
 textarea,
 select {
   width: 100%;
-  padding: 12px;
-  margin: 6px 0 14px;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
+  border-radius: 11px;
+  padding: 12px;
+  margin-bottom: 14px;
   background: white;
   color: #444;
 }
 
 textarea {
-  min-height: 120px;
+  min-height: 130px;
   resize: vertical;
 }
 
@@ -221,16 +234,12 @@ textarea {
 }
 
 /* =========================
-   搜尋
+   搜尋／篩選
 ========================= */
 
 .search {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
-
-/* =========================
-   篩選
-========================= */
 
 .filters {
   display: flex;
@@ -240,38 +249,38 @@ textarea {
 }
 
 .filter-button {
-  background: white;
   border: 1px solid #ddd;
+  background: white;
   border-radius: 10px;
   padding: 8px 12px;
-  color: #555;
+  color: #666;
 }
 
 .filter-button.active {
-  background: #4b4548;
+  background: #555054;
   color: white;
 }
 
 /* =========================
-   書籍卡片
+   書籍
 ========================= */
 
 .book {
   background: white;
-  padding: 16px;
   border-radius: 17px;
+  padding: 16px;
   margin-bottom: 14px;
   display: flex;
-  gap: 14px;
-  box-shadow: 0 2px 9px rgba(0,0,0,0.05);
+  gap: 15px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.045);
 }
 
 .cover {
   width: 82px;
-  height: 116px;
+  height: 118px;
   object-fit: cover;
   border-radius: 7px;
-  background: #f0ebed;
+  background: #f0eeee;
   flex-shrink: 0;
 }
 
@@ -280,119 +289,119 @@ textarea {
   min-width: 0;
 }
 
-.book h3 {
-  margin: 0 0 7px;
-  line-height: 1.45;
+.book-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 6px;
 }
 
-.book p {
+.book-info p {
   margin: 5px 0;
   color: #777;
+  font-size: 14px;
   line-height: 1.5;
 }
 
 .book-actions {
+  margin-top: 11px;
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  margin-top: 10px;
+}
+
+.tag {
+  display: inline-block;
+  background: #fff0f5;
+  color: #a66f83;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.status-tag {
+  background: #f3f0f2;
+  color: #777;
 }
 
 /* =========================
    待閱書單
 ========================= */
 
-.list-note {
-  text-align: center;
-  color: #999;
-  line-height: 1.7;
-  margin: -10px 0 25px;
-}
-
-.reading-card {
+.reading-item {
   background: white;
-  padding: 17px;
-  border-radius: 17px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-radius: 16px;
+  padding: 15px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 9px rgba(0,0,0,0.04);
 }
 
-.reading-card h3 {
-  margin: 0 0 7px;
-  line-height: 1.5;
+.reading-title {
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 
-.reading-card p {
-  color: #777;
-  margin: 5px 0;
+.reading-author {
+  color: #888;
+  font-size: 14px;
 }
 
-.category-tag {
-  display: inline-block;
-  background: #fff0f5;
-  color: #9b687b;
-  padding: 4px 9px;
-  border-radius: 8px;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-.reading-card button {
-  margin-top: 10px;
+.reading-actions {
+  margin-top: 9px;
 }
 
 /* =========================
-   金惠奫
+   推薦書單
 ========================= */
 
-.section-title {
-  margin-top: 30px;
-  margin-bottom: 12px;
+.recommend-badge {
+  display: inline-block;
+  background: #fff0f5;
+  color: #a45f79;
+  padding: 5px 9px;
+  border-radius: 9px;
+  font-size: 12px;
+  margin-bottom: 8px;
 }
 
-.confidence {
-  padding: 16px;
-  border-radius: 16px;
-  margin-bottom: 12px;
+.recommend-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
-.green {
-  background: #eef9f0;
+.recommend-author {
+  color: #777;
+  margin-bottom: 8px;
 }
 
-.yellow {
-  background: #fff8df;
+.recommend-note {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
-.red {
-  background: #fff0f0;
+/* =========================
+   心得
+========================= */
+
+.review-box {
+  background: white;
+  border-radius: 17px;
+  padding: 18px;
+  margin-bottom: 14px;
 }
 
-.confidence-title {
-  font-weight: bold;
+.review-title {
+  font-size: 18px;
+  font-weight: 700;
   margin-bottom: 7px;
 }
 
-.recommend-book {
-  background: white;
-  padding: 17px;
-  border-radius: 17px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-
-.recommend-book h3 {
-  margin: 0 0 6px;
-}
-
-.recommend-book p {
-  line-height: 1.7;
+.review-text {
   color: #777;
-}
-
-.note {
-  color: #999;
-  font-size: 14px;
+  white-space: pre-wrap;
+  line-height: 1.7;
 }
 
 /* =========================
@@ -400,16 +409,12 @@ textarea {
 ========================= */
 
 .reminder {
-  background: white;
+  background: #fff0f5;
   border-radius: 18px;
   padding: 20px;
-  line-height: 1.9;
-  color: #666;
   margin-top: 25px;
-}
-
-.reminder strong {
-  color: #4b4548;
+  line-height: 1.8;
+  color: #806a72;
 }
 
 /* =========================
@@ -419,46 +424,34 @@ textarea {
 .empty {
   text-align: center;
   color: #aaa;
-  padding: 35px 20px;
-  background: white;
-  border-radius: 16px;
+  padding: 35px 15px;
 }
 
 /* =========================
-   手機
+   備份
 ========================= */
 
-@media (max-width: 480px) {
+.backup-box {
+  background: white;
+  border-radius: 17px;
+  padding: 18px;
+  margin-top: 20px;
+}
 
-  .container {
-    padding: 18px 12px 45px;
-  }
-
-  .mascot {
-    font-size: 75px;
-  }
-
-  .welcome {
-    font-size: 23px;
-  }
-
-  .book {
-    padding: 13px;
-  }
-
-  .cover {
-    width: 70px;
-    height: 100px;
-  }
-
+.small-note {
+  color: #999;
+  font-size: 13px;
+  line-height: 1.7;
 }
 
 </style>
 </head>
 
+
 <body>
 
 <div class="container">
+
 
 <!-- ==================================================
      首頁
@@ -475,34 +468,93 @@ textarea {
   </div>
 
   <div class="quote">
-    今天也讀一點點吧。📖
+    慢慢讀，慢慢想，慢慢生活。📖
   </div>
 
   <div class="menu">
 
     <button class="menu-button"
       onclick="showPage('shelf')">
+
       <span class="menu-icon">📚</span>
-      我的書架
+      <span class="menu-title">我的書架</span>
+
+      <span class="menu-description">
+        收藏已讀、閱讀中與想讀的書
+      </span>
+
     </button>
 
+
     <button class="menu-button"
-      onclick="showPage('toread')">
+      onclick="showPage('wishlist')">
+
       <span class="menu-icon">📋</span>
-      我的待閱書單
+      <span class="menu-title">我的待閱書單</span>
+
+      <span class="menu-description">
+        跟著好奇心慢慢讀
+      </span>
+
     </button>
+
 
     <button class="menu-button"
       onclick="showPage('recommend')">
+
       <span class="menu-icon">💡</span>
-      金惠奫｜閱讀／推薦書單
+      <span class="menu-title">金惠奫閱讀／推薦書單</span>
+
+      <span class="menu-description">
+        公開資料整理
+      </span>
+
     </button>
 
+
     <button class="menu-button"
-      onclick="showPage('reminder')">
-      <span class="menu-icon">🌱</span>
-      我的閱讀提醒
+      onclick="showPage('reviews')">
+
+      <span class="menu-icon">📝</span>
+      <span class="menu-title">閱讀心得</span>
+
+      <span class="menu-description">
+        留下每一本書帶給你的東西
+      </span>
+
     </button>
+
+
+    <button class="menu-button"
+      onclick="showPage('backup')">
+
+      <span class="menu-icon">💾</span>
+      <span class="menu-title">資料備份</span>
+
+      <span class="menu-description">
+        匯出或匯入你的書架資料
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <div class="reminder">
+
+    📖 <strong>我的閱讀提醒</strong><br><br>
+
+    這是一份待閱書單，不是待辦事項。<br>
+    我不需要把它全部讀完，也不需要用閱讀量證明自己。<br><br>
+
+    有興趣，就讀。<br>
+    想停，就停。<br>
+    現在讀不下去，就換一本。<br><br>
+
+    閱讀不是為了成為某一種人。<br>
+    只是因為我對這個世界還有很多好奇。<br><br>
+
+    <strong>慢慢讀，慢慢想，慢慢生活。</strong>
 
   </div>
 
@@ -522,33 +574,29 @@ textarea {
 
   <h1>📚 我的書架</h1>
 
-  <button class="add-button"
+  <button class="primary-button"
     onclick="showAddForm()">
     ＋ 新增書籍
   </button>
 
-  <div id="form" class="form hidden">
+
+  <div id="bookForm" class="form hidden">
 
     <h2 id="formTitle">
       新增書籍
     </h2>
 
     <label>書名</label>
-
     <input id="title"
-      type="text"
       placeholder="例如：臺灣漫遊錄">
 
     <label>作者</label>
-
     <input id="author"
-      type="text"
       placeholder="作者姓名">
 
     <label>書籍分類</label>
 
     <select id="category">
-
       <option value="小說">小說</option>
       <option value="散文">散文</option>
       <option value="詩集">詩集</option>
@@ -558,33 +606,33 @@ textarea {
       <option value="歷史">歷史</option>
       <option value="社會">社會</option>
       <option value="傳記">傳記</option>
+      <option value="自然">自然</option>
+      <option value="藝術">藝術</option>
       <option value="其他">其他</option>
-
     </select>
+
 
     <label>閱讀狀態</label>
 
     <select id="status">
-
       <option value="未讀">未讀</option>
       <option value="閱讀中">閱讀中</option>
       <option value="已讀">已讀</option>
       <option value="暫停">暫停</option>
-
     </select>
+
 
     <label>評分</label>
 
     <select id="rating">
-
       <option value="0">尚未評分</option>
       <option value="1">⭐</option>
       <option value="2">⭐⭐</option>
       <option value="3">⭐⭐⭐</option>
       <option value="4">⭐⭐⭐⭐</option>
       <option value="5">⭐⭐⭐⭐⭐</option>
-
     </select>
+
 
     <label>書封</label>
 
@@ -596,10 +644,12 @@ textarea {
     <img id="preview"
       class="preview">
 
+
     <label>我的心得</label>
 
     <textarea id="review"
-      placeholder="寫下你的閱讀感受……"></textarea>
+      placeholder="這本書最打動我的是什麼？&#10;讓我想到什麼？&#10;它有沒有改變我一點點看世界的方式？"></textarea>
+
 
     <button class="primary-button"
       onclick="saveBook()">
@@ -615,105 +665,23 @@ textarea {
 
 
   <input
-    class="search"
     id="search"
-    type="text"
+    class="search"
     placeholder="🔍 搜尋書名或作者……"
     oninput="displayBooks()">
 
 
   <h3>🏷️ 書籍分類</h3>
 
-  <div class="filters">
-
-    <button class="filter-button active"
-      onclick="setCategory('全部', this)">
-      全部
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('小說', this)">
-      小說
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('散文', this)">
-      散文
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('詩集', this)">
-      詩集
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('非虛構', this)">
-      非虛構
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('心理', this)">
-      心理
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('哲學', this)">
-      哲學
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('歷史', this)">
-      歷史
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('社會', this)">
-      社會
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('傳記', this)">
-      傳記
-    </button>
-
-    <button class="filter-button"
-      onclick="setCategory('其他', this)">
-      其他
-    </button>
-
-  </div>
+  <div id="categoryFilters"
+       class="filters"></div>
 
 
   <h3>📖 閱讀狀態</h3>
 
-  <div class="filters">
+  <div id="statusFilters"
+       class="filters"></div>
 
-    <button class="filter-button active"
-      onclick="setStatus('全部', this)">
-      全部
-    </button>
-
-    <button class="filter-button"
-      onclick="setStatus('未讀', this)">
-      未讀
-    </button>
-
-    <button class="filter-button"
-      onclick="setStatus('閱讀中', this)">
-      閱讀中
-    </button>
-
-    <button class="filter-button"
-      onclick="setStatus('已讀', this)">
-      已讀
-    </button>
-
-    <button class="filter-button"
-      onclick="setStatus('暫停', this)">
-      暫停
-    </button>
-
-  </div>
 
   <div id="books"></div>
 
@@ -724,7 +692,7 @@ textarea {
      待閱書單
 ================================================== -->
 
-<section id="toread" class="page">
+<section id="wishlist" class="page">
 
   <button class="back-button"
     onclick="showPage('home')">
@@ -733,88 +701,15 @@ textarea {
 
   <h1>📋 我的待閱書單</h1>
 
-  <div class="list-note">
-    這是一份待閱書單，不是待辦事項。🌱<br>
-    有興趣，就讀；想停，就停。
-  </div>
-
-  <input
+  <input id="wishlistSearch"
     class="search"
-    id="toreadSearch"
-    type="text"
-    placeholder="🔍 搜尋書名或作者……"
-    oninput="displayToReadBooks()">
+    placeholder="🔍 搜尋待閱書名或作者……"
+    oninput="displayWishlist()">
 
-  <div class="filters">
+  <div id="wishlistCategories"
+       class="filters"></div>
 
-    <button class="filter-button active"
-      onclick="setToReadCategory('全部', this)">
-      全部
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('心理、自我與成長', this)">
-      🧠 心理
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('性別、關係、身分與社會', this)">
-      🫂 性別
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('世界、社會、政治與權力', this)">
-      🌍 世界
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('臺灣史、臺灣社會與認同', this)">
-      🇹🇼 臺灣史
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('臺灣文學', this)">
-      📚 臺灣文學
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('世界文學、小說與哲學', this)">
-      🌎 世界文學
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('韓國文學與其他作家', this)">
-      🇰🇷 韓國
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('自然、環境與生命', this)">
-      🌿 自然
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('戰爭、歷史記憶與苦難', this)">
-      ⚔️ 戰爭
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('中國、香港、新疆與威權政治', this)">
-      🇨🇳 中國／香港
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('終戰那一天延伸書單', this)">
-      🕊️ 終戰
-    </button>
-
-    <button class="filter-button"
-      onclick="setToReadCategory('藝術、美學與觀看', this)">
-      🎨 藝術
-    </button>
-
-  </div>
-
-  <div id="toreadBooks"></div>
+  <div id="wishlistBooks"></div>
 
 </section>
 
@@ -830,302 +725,79 @@ textarea {
     ← 回首頁
   </button>
 
-  <h1>💡 金惠奫｜閱讀／推薦書單</h1>
+  <h1>💡 金惠奫閱讀／推薦書單</h1>
 
-  <div class="list-note">
-    以下書單彙整自公開訪談、活動、影片等資料。<br>
-    「閱讀過」、「推薦過」、「參與朗讀」並不完全相同。
-  </div>
+  <div class="card">
 
+    <strong>📚 資料說明</strong>
 
-  <h2 class="section-title">🟢 較明確公開資料</h2>
-
-  <div class="confidence green">
-
-    <div class="confidence-title">
-      01｜《福爾摩斯探案全集》
-    </div>
-
-    <p>
-      作者：亞瑟・柯南・道爾
-    </p>
-
-    <p>
-      才華洋溢的名偵探夏洛克・福爾摩斯，
-      憑藉嚴密的邏輯推理與敏銳的觀察力，
-      破解各種離奇棘手的案件。
-    </p>
-
-    <p>
-      💡 金惠奫相關：曾公開提及自己喜歡《福爾摩斯》。
+    <p class="small-note">
+      以下依目前整理的公開訪談、活動、影片等資料區分。
+      「閱讀過」、「推薦過」、「參與朗讀」並不完全相同，
+      因此保留可信程度的差異。
     </p>
 
   </div>
 
-
-  <div class="confidence green">
-
-    <div class="confidence-title">
-      02｜《刺殺騎士團長》
-    </div>
-
-    <p>
-      作者：村上春樹
-    </p>
-
-    <p>
-      一名孤獨的畫家因發現一幅神秘畫作，
-      而被捲入一連串詭異又超現實的事件之中。
-    </p>
-
-    <p>
-      💡 金惠奫相關：曾在訪談中提到自己正在閱讀這本書，
-      也提過大學時曾讀到一半，後來因故歸還，
-      之後重新閱讀。
-    </p>
-
-  </div>
-
-
-  <div class="confidence green">
-
-    <div class="confidence-title">
-      03｜《身分／身分認同》
-    </div>
-
-    <p>
-      作者：米蘭・昆德拉
-    </p>
-
-    <p>
-      探討愛情、不安，以及人的身分認同如何在親密關係中產生動搖。
-    </p>
-
-    <p>
-      💡 金惠奫相關：曾公開推薦米蘭・昆德拉的《정체성》。
-    </p>
-
-  </div>
-
-
-  <div class="confidence green">
-
-    <div class="confidence-title">
-      04｜《為什麼魚不存在》
-    </div>
-
-    <p>
-      作者：Lulu Miller
-    </p>
-
-    <p>
-      結合回憶錄、科普與哲學思考，
-      從分類、秩序與混亂出發，
-      思考人如何在充滿偶然的世界裡尋找意義。
-    </p>
-
-    <p>
-      💡 金惠奫相關：曾在粉絲簽名會回答粉絲提問時推薦這本書。
-    </p>
-
-  </div>
-
-
-  <div class="confidence green">
-
-    <div class="confidence-title">
-      05｜《哈利波特》系列
-    </div>
-
-    <p>
-      作者：J.K. 羅琳
-    </p>
-
-    <p>
-      七部曲奇幻小說，講述哈利在魔法世界中成長，
-      並與黑巫師佛地魔對抗的故事。
-    </p>
-
-    <p>
-      💡 金惠奫相關：明確的《哈利波特》愛好者。
-    </p>
-
-  </div>
-
-
-  <h2 class="section-title">🟡 曾有公開關聯，但不能直接等同於「推薦」</h2>
-
-  <div class="confidence yellow">
-
-    <div class="confidence-title">
-      06｜《地球上唯一的韓亞》
-    </div>
-
-    <p>
-      作者：鄭世朗
-    </p>
-
-    <p>
-      一部融合科幻、愛情與奇幻元素的小說。
-    </p>
-
-    <p>
-      💡 金惠奫相關：曾參與這本書的朗讀活動。
-    </p>
-
-    <p class="note">
-      ⚠️ 比較準確的說法是「曾參與朗讀」，
-      不宜直接寫成「金惠奫推薦」。
-    </p>
-
-  </div>
-
-
-  <h2 class="section-title">🔴 尚缺乏足夠公開資料確認</h2>
-
-  <div class="confidence red">
-
-    <div class="confidence-title">
-      07｜《歡迎光臨夢境百貨》
-    </div>
-
-    <p>
-      作者：李美芮
-    </p>
-
-    <p>
-      一本溫暖療癒的奇幻小說，
-      描寫一間神奇的夢境百貨。
-    </p>
-
-    <p>
-      ⚠️ 目前尚缺乏足夠可靠公開資料確認金惠奫本人曾閱讀或推薦。
-    </p>
-
-  </div>
-
-
-  <div class="confidence red">
-
-    <div class="confidence-title">
-      08｜《我是遺物整理師》
-    </div>
-
-    <p>
-      作者：金完
-    </p>
-
-    <p>
-      作者根據自身從事孤獨死現場清理工作的經歷，
-      講述人生、孤獨與告別。
-    </p>
-
-    <p>
-      ⚠️ 目前尚缺乏足夠可靠公開資料確認金惠奫本人曾閱讀或推薦。
-    </p>
-
-  </div>
+  <div id="recommendBooks"></div>
 
 </section>
 
 
 <!-- ==================================================
-     閱讀提醒
+     閱讀心得
 ================================================== -->
 
-<section id="reminder" class="page">
+<section id="reviews" class="page">
 
   <button class="back-button"
     onclick="showPage('home')">
     ← 回首頁
   </button>
 
-  <h1>🌱 我的閱讀提醒</h1>
+  <h1>📝 閱讀心得</h1>
 
-  <div class="reminder">
+  <div id="reviewBooks"></div>
 
-    <p>
-      這是一份待閱書單，<strong>不是待辦事項。</strong>
+</section>
+
+
+<!-- ==================================================
+     備份
+================================================== -->
+
+<section id="backup" class="page">
+
+  <button class="back-button"
+    onclick="showPage('home')">
+    ← 回首頁
+  </button>
+
+  <h1>💾 資料備份</h1>
+
+  <div class="backup-box">
+
+    <h2>為什麼需要備份？</h2>
+
+    <p class="small-note">
+      目前這個 GitHub Pages 版本會把資料儲存在你使用的瀏覽器中。
+      如果清除瀏覽器資料、換裝置，書籍可能不會出現。
+      建議偶爾匯出一次備份。
     </p>
 
-    <p>
-      書單很長，沒有關係。
-    </p>
+    <button class="primary-button"
+      onclick="exportData()">
+      📦 匯出我的書架資料
+    </button>
 
-    <p>
-      我不需要把它全部讀完，<br>
-      也不需要按照順序閱讀，<br>
-      更不需要用閱讀量證明自己。
-    </p>
+    <label>
+      匯入之前的備份
+    </label>
 
-    <p>
-      有興趣，就讀。<br>
-      想停，就停。<br>
-      現在讀不下去，就換一本。
-    </p>
-
-    <p>
-      過了一段時間又重新對某本書感興趣，
-      也可以再回來讀。
-    </p>
-
-    <p>
-      <strong>
-        跟著好奇心讀，而不是跟著數量讀。
-      </strong>
-    </p>
-
-    <p>
-      閱讀可以是認識世界的方式，<br>
-      也可以是認識自己的方式。
-    </p>
-
-    <p>
-      可以透過心理學理解自己；<br>
-      透過文學理解他人的人生；<br>
-      透過歷史理解一個時代；<br>
-      透過政治與社會學理解世界如何運作；<br>
-      透過臺灣文學理解土地、記憶與身分；<br>
-      也可以什麼都不想，只單純享受一本書。
-    </p>
-
-    <p>
-      我不需要因為一本書、
-      一個心理學理論或一個人格分類，
-      就急著認定：
-    </p>
-
-    <p>
-      「原來我就是這樣的人。」
-    </p>
-
-    <p>
-      我可以先問：
-    </p>
-
-    <p>
-      「這有沒有一點像我？」<br>
-      「為什麼它讓我有這麼強烈的感受？」<br>
-      「它有沒有讓我看見以前沒注意到的自己？」
-    </p>
-
-    <p>
-      然後把答案帶回生活裡慢慢驗證。
-    </p>
-
-    <p>
-      <strong>
-        閱讀不是為了成為某一種人。
-      </strong>
-    </p>
-
-    <p>
-      只是因為我對這個世界還有很多好奇。
-    </p>
-
-    <p style="text-align:center; font-size:20px;">
-      慢慢讀，慢慢想，慢慢生活。🌱
-    </p>
+    <input
+      type="file"
+      accept=".json"
+      onchange="importData(event)">
 
   </div>
 
@@ -1137,11 +809,13 @@ textarea {
 <script>
 
 /* ==================================================
-   我的書架資料
+   資料
 ================================================== */
 
+const STORAGE_KEY = "myBooks_v2";
+
 let books =
-  JSON.parse(localStorage.getItem("myBooks")) || [];
+  JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
 let editingId = null;
 let selectedCover = null;
@@ -1151,7 +825,286 @@ let selectedStatus = "全部";
 
 
 /* ==================================================
-   頁面切換
+   待閱書單
+================================================== */
+
+const wishlist = [
+
+["我們為什麼對好事麻木、對壞事容忍？：習慣化如何左右人生 Look Again","","心理"],
+["自我的追尋：倫理學的心理學探究","埃里希・佛洛姆","心理"],
+["失控的照護","","心理"],
+["自我慈悲","克莉絲汀・聶夫","心理"],
+["依附","","心理"],
+["蛤蟆先生去看心理師","羅伯特・戴博德","心理"],
+["也許你該找個人聊聊","洛莉・葛利布","心理"],
+["情緒勒索","蘇珊・佛沃、蘿拉・薩克","心理"],
+["少有人走的路","M. Scott Peck","心理"],
+["4%的人毫無良知，我該怎麼辦","瑪莎・史陶特","心理"],
+["好女孩症候群","","心理"],
+["良性羞恥","","心理"],
+["始於極限","","心理"],
+["雨落池中，為何還堅持游泳","喬治・桑德斯","心理"],
+["垃圾場長大的自學人生","塔拉・韋斯特弗","成長"],
+["做自己的生命設計師","","成長"],
+["理想主義者的養成","","成長"],
+["隨他們去","","成長"],
+["我在日本熊野古道找回自己","","成長"],
+["情緒靈敏力","蘇珊・大衛","心理"],
+["正念的奇蹟","一行禪師","心理"],
+["界線","亨利・克勞德、約翰・湯森德","心理"],
+["活出意義來","維克多・弗蘭克","哲學"],
+["愛的藝術","艾瑞克・佛洛姆","哲學"],
+["存在的勇氣","保羅・田立克","哲學"],
+
+["最小的女兒","","性別"],
+["美的奴役","","性別"],
+["想要：匿名女性的性幻想","吉蓮・安德森","性別"],
+["那些少女沒有抵達","吳曉樂","性別"],
+["誰是外來者","","社會"],
+["厭女","上野千鶴子","性別"],
+["我的性別認同是一架攻擊直升機","","性別"],
+["對男人一無所知的我","","性別"],
+["集合體","","社會"],
+["花開若是有聲音","陳凱琳","文學"],
+["水族","","文學"],
+["保留地","","文學"],
+["盤根之森","","文學"],
+
+["黑潮：從關鍵的一九七九年，剖析中東文化、宗教、集體記憶的四十年難解對立","","世界"],
+["當我們不再理解世界","班・雅明・拉布圖","世界"],
+["權力","","社會"],
+["槍砲、病菌與鋼鐵","賈德・戴蒙","歷史"],
+["盛世之鑰","","歷史"],
+["幹部國家","費約翰","政治"],
+["克里姆林宮的餐桌","","政治"],
+["太陽與生命之樹","","自然"],
+["北韓人民的真實生活","","政治"],
+["愛國者納瓦尼","","政治"],
+["寂靜的春天","瑞秋・卡森","自然"],
+["沒有土壤的世界","","自然"],
+["普通人不會揹著機關槍","","戰爭"],
+["人類大歷史","尤瓦爾・赫拉利","歷史"],
+["未來簡史","尤瓦爾・赫拉利","歷史"],
+["規訓與懲罰","米歇爾・傅柯","哲學"],
+["想像的共同體","班納迪克・安德森","社會"],
+["娛樂至死","尼爾・波茲曼","社會"],
+
+["叮咚！簽收臺灣史──過去給未來的33個物語","","臺灣史"],
+["看得見的台灣史","","臺灣史"],
+["綠島","","臺灣"],
+["逃離中國：現代臺灣的創傷、記憶與認同","","臺灣"],
+["台灣的李登輝時代","林孝庭","臺灣史"],
+["燈塔行","","臺灣"],
+["見樹又見林","","臺灣"],
+["書頁中的永恆","","臺灣"],
+["笑忘書","","臺灣"],
+["海鯤破浪：台灣潛艦發展史與國防自主之路","","臺灣"],
+
+["單車失竊記","吳明益","臺灣文學"],
+["睡眠的航線","吳明益","臺灣文學"],
+["織","張郅忻","臺灣文學"],
+["海市","張郅忻","臺灣文學"],
+["山鏡","張郅忻","臺灣文學"],
+["泥土","吳晟","臺灣文學"],
+["大港的女兒","陳柔縉","臺灣文學"],
+["反重力","黃崇凱","臺灣文學"],
+["一位女性殺人犯的素描","胡慕情","臺灣文學"],
+["當太陽墜毀在哈因沙山","朱和之","臺灣文學"],
+["樓上的好人","陳思宏","臺灣文學"],
+["沒口之河","黃瀚嶢","臺灣文學"],
+["我隨意你盡量","王昭華","臺灣文學"],
+["菊花如何夜行軍","鍾永豐","臺灣文學"],
+["福島漂流記","蔡易澄","臺灣文學"],
+["林青霞的散文","林青霞","散文"],
+["零雨的詩","零雨","詩集"],
+
+["異域","柏楊","歷史"],
+["滇緬孤軍史","","歷史"],
+["異域（續集／相關口述史版本）","","歷史"],
+["最小的女兒","","小說"],
+["湖濱散記","亨利・大衛・梭羅","散文"],
+["理性與感性","珍・奧斯汀","小說"],
+["雅各之書","奧爾嘉・朵卡萩","小說"],
+["逃亡者手記","","小說"],
+["涅朵奇卡：一個女人的一生","杜斯妥也夫斯基","小說"],
+["生命中不能承受之輕","米蘭・昆德拉","小說"],
+["渺小一生","柳原漢雅","小說"],
+["惶然錄","費爾南多・佩索亞","小說"],
+["白夜行","東野圭吾","小說"],
+["祈念之樹","東野圭吾","小說"],
+["麗塔海華絲與鯊堡監獄的救贖","史蒂芬・金","小說"],
+["給未來的讀者","","小說"],
+["小鳥與理夢人","","小說"],
+["送書人","","小說"],
+["有去無回的地方","","小說"],
+["有去無回的地方：一個維吾爾女孩在新疆「再教育營」的真實經歷","","非虛構"],
+["等待在夜裡被捕","塔伊爾・哈木提・伊茲格爾","非虛構"],
+["難民也有派對","","小說"],
+["卡拉馬助夫兄弟們","杜斯妥也夫斯基","小說"],
+["追風箏的孩子","卡勒德・胡賽尼","小說"],
+["燦爛千陽","卡勒德・胡賽尼","小說"],
+["安妮的日記","安妮・法蘭克","日記"],
+["戰地鐘聲","海明威","小說"],
+["西線無戰事","埃里希・瑪麗亞・雷馬克","小說"],
+["夜","艾利・維瑟爾","非虛構"],
+["徬徨少年時（德米安）","赫曼・赫塞","小說"],
+["華氏451度","雷・布萊伯利","小說"],
+["不然你搬去火星啊","伊坂幸太郎","小說"],
+["沉睡人魚之家","東野圭吾","小說"],
+
+["少年來了","韓江","韓國文學"],
+
+["成為一座山","","自然"],
+["樹的秘密生命","彼得・渥雷本","自然"],
+
+["屠殺","","戰爭"],
+["關於香港","","香港"],
+
+["唯紅花綻放","馮哲芸","中國／香港"],
+["黑甲山的微光","戴倫・拜勒","新疆"],
+["中國製造：從躺平、小粉紅到正能量，當代中國流行語背後的真實社會","紀野、石路","中國"],
+["抖音帝國：TikTok夾在中國與美國之間的商戰野心","艾蜜莉・貝克懷特","中國"],
+["滾出中國","畢可思","中國"],
+["牆國誌","詹姆斯・格里菲斯","中國"],
+["美中開戰的終極指南","彼得・納瓦羅","政治"],
+["中國戰狼外交","馬越","政治"],
+["中共間諜戰術全解析","尼可拉斯・艾夫提米亞迪斯","政治"],
+["紅色賭盤","沈棟","中國"],
+["紅色滲透","何清漣","中國"],
+["中國：潰而不崩","何清漣、程曉農","中國"],
+["獨生","方鳳美","中國"],
+["與習近平聊聊台灣和中國","范疇","政治"],
+["武漢封城日記","郭晶","中國"],
+["黑手：揭穿中國共產黨如何改造世界","克萊夫・漢密爾頓","政治"],
+["中華秩序：中原、世界帝國，與中國力量的本質","王飛凌","中國"],
+["解放的悲劇","馮客","中國史"],
+["毛澤東的大饑荒","馮客","中國史"],
+["文化大革命","馮客","中國史"],
+["獨裁者聯盟","安愛波邦","政治"],
+["有去無回的地方","米日古麗・圖爾蓀、安德莉亞・C・霍夫曼","新疆"],
+["新疆：被中共支配的七十年","熊倉潤","新疆"],
+["中國威權之謎","黎安友","中國"],
+["中國模式的終點","黃亞生","中國"],
+["吃佛","芭芭拉・德米克","中國"],
+["在骸骨上漫舞","凱蒂・史塔拉德","中國"],
+["極權基因","凱蒂・史塔拉德","政治"],
+["養共為患","余杰","政治"],
+["美國百年外交大敗局","余杰","政治"],
+
+["無處安放的記憶：重溯／塑台灣人的二戰經驗","","戰爭"],
+["在東亞跨界流離的人生：老兵的臺灣史","","戰爭"],
+["最後的雄鷹：一位台籍日軍飛行員的戰時日記","","戰爭"],
+["叛逆的天空：黃華昌回憶錄【增訂新版】","黃華昌","戰爭"],
+["擁有兩個祖國的臺灣少年工","","戰爭"],
+["白衣天使的未竟戰爭：臺灣從軍看護婦廖淑霞的生命故事","","戰爭"],
+["左營二戰祕史：震洋特攻隊駐臺始末","","戰爭"],
+["轟鳴未曾遠去：從日本海軍第六十一航空廠到岡山醒村","","戰爭"],
+["永遠的台灣島：一九四五年，舊制台北高校生眼中敗戰的台北","","戰爭"],
+["戰爭中的美術：二戰下臺灣的時局畫","","藝術"],
+["帝國之門：日治時期南進擴張浪潮下的臺灣人","","臺灣史"],
+["流轉臺灣的沖繩人：被帝國烙印的生命之旅","","臺灣史"],
+["魔之濕地：台灣第五回高砂義勇隊 日本軍官證言","","戰爭"],
+["臺灣慰安婦","","臺灣史"],
+["離散與回歸：在滿洲的臺灣人（1905-1948）","","臺灣史"],
+["慢船向西：日本時代臺灣人醫師在中國","","臺灣史"],
+["冰封的記憶：尋找西伯利亞戰俘營的臺籍日本兵","","戰爭"],
+["零下六十八度：二戰後臺灣人的西伯利亞戰俘經驗","","戰爭"],
+["告別南國：在台日人「引揚」研究","","臺灣史"],
+["當帝國回到家：戰後日本的遣返與重整","","歷史"],
+["關鍵七十一天","","戰爭"],
+["神明離去之後：臺灣神社的收藏物語","","臺灣史"],
+
+["觀看之道","約翰・伯格","藝術"],
+["藝術的故事","E.H. 貢布里希","藝術"],
+
+["雙面葛蕾絲","","劇"],
+
+["快樂腳2","","電影"],
+["海邊的曼徹斯特","","電影"],
+["宛如天堂","","電影"],
+["異域","","電影"],
+["刺激1995","","電影"],
+["紅氣球","","電影"],
+["忐忑","","電影"],
+["倫敦生活","","電影"],
+["白日夢冒險王","","電影"],
+["粗獷派建築師","","電影"],
+
+["非法的正義","","紀錄片"],
+["達賴的一生","","紀錄片"],
+["終戰那一天","","紀錄片"],
+["時代革命","","紀錄片"]
+
+];
+
+
+/* ==================================================
+   金惠奫書單
+================================================== */
+
+const recommendations = [
+
+{
+ title:"《福爾摩斯探案全集》",
+ author:"亞瑟・柯南・道爾",
+ badge:"🟢 較明確公開資料",
+ note:"曾公開提及自己喜歡《福爾摩斯》。"
+},
+
+{
+ title:"《刺殺騎士團長》",
+ author:"村上春樹",
+ badge:"🟢 較明確公開資料",
+ note:"曾在訪談中提到正在閱讀，也曾提過大學時讀到一半，後來重新閱讀。"
+},
+
+{
+ title:"《身分／身分認同》",
+ author:"米蘭・昆德拉",
+ badge:"🟢 較明確公開資料",
+ note:"曾公開推薦米蘭・昆德拉的《정체성》，中文譯名常作《身分》或《身分認同》。"
+},
+
+{
+ title:"《為什麼魚不存在》",
+ author:"Lulu Miller",
+ badge:"🟢 較明確公開資料",
+ note:"曾在粉絲簽名會回答粉絲提問時推薦這本書。"
+},
+
+{
+ title:"《哈利波特》系列",
+ author:"J.K. 羅琳",
+ badge:"🟢 較明確公開資料",
+ note:"曾公開分享自己觀看《哈利波特》的習慣，也提過喜歡這個作品。"
+},
+
+{
+ title:"《地球上唯一的韓亞》",
+ author:"鄭世朗",
+ badge:"🟡 曾有公開關聯",
+ note:"曾參與這本書的朗讀活動。因此比較準確的說法是「曾參與朗讀」，而非直接稱為推薦。"
+},
+
+{
+ title:"《歡迎光臨夢境百貨》",
+ author:"李美芮",
+ badge:"🔴 待進一步查證",
+ note:"目前尚缺乏足夠可靠的公開資料確認本人曾閱讀或推薦。"
+},
+
+{
+ title:"《我是遺物整理師》",
+ author:"金完",
+ badge:"🔴 待進一步查證",
+ note:"目前尚缺乏足夠可靠的公開資料確認本人曾閱讀或推薦。"
+}
+
+];
+
+
+/* ==================================================
+   導航
 ================================================== */
 
 function showPage(page) {
@@ -1160,32 +1113,38 @@ function showPage(page) {
     .querySelectorAll(".page")
     .forEach(p => p.classList.remove("active"));
 
-  const target = document.getElementById(page);
-
-  if (target) {
-    target.classList.add("active");
-  }
+  document
+    .getElementById(page)
+    .classList.add("active");
 
   if (page === "shelf") {
     displayBooks();
   }
 
-  if (page === "toread") {
-    displayToReadBooks();
+  if (page === "wishlist") {
+    displayWishlist();
   }
 
-  window.scrollTo(0, 0);
+  if (page === "recommend") {
+    displayRecommendations();
+  }
+
+  if (page === "reviews") {
+    displayReviews();
+  }
+
+  window.scrollTo(0,0);
 }
 
 
 /* ==================================================
-   儲存書架
+   儲存
 ================================================== */
 
 function saveBooks() {
 
   localStorage.setItem(
-    "myBooks",
+    STORAGE_KEY,
     JSON.stringify(books)
   );
 
@@ -1193,7 +1152,7 @@ function saveBooks() {
 
 
 /* ==================================================
-   新增書籍
+   新增
 ================================================== */
 
 function showAddForm() {
@@ -1201,81 +1160,10 @@ function showAddForm() {
   editingId = null;
   selectedCover = null;
 
-  document.getElementById("formTitle").textContent =
-    "新增書籍";
+  document.getElementById("formTitle")
+    .textContent = "新增書籍";
 
   document.getElementById("title").value = "";
   document.getElementById("author").value = "";
   document.getElementById("category").value = "小說";
-  document.getElementById("status").value = "未讀";
-  document.getElementById("rating").value = "0";
-  document.getElementById("review").value = "";
-  document.getElementById("cover").value = "";
-
-  document.getElementById("preview").style.display =
-    "none";
-
-  document.getElementById("form")
-    .classList.remove("hidden");
-
-}
-
-
-/* ==================================================
-   編輯書籍
-================================================== */
-
-function editBook(id) {
-
-  const book = books.find(book => book.id === id);
-
-  if (!book) return;
-
-  editingId = id;
-  selectedCover = book.cover || null;
-
-  document.getElementById("formTitle").textContent =
-    "編輯書籍";
-
-  document.getElementById("title").value =
-    book.title || "";
-
-  document.getElementById("author").value =
-    book.author || "";
-
-  document.getElementById("category").value =
-    book.category || "其他";
-
-  document.getElementById("status").value =
-    book.status || "未讀";
-
-  document.getElementById("rating").value =
-    book.rating || "0";
-
-  document.getElementById("review").value =
-    book.review || "";
-
-  document.getElementById("cover").value = "";
-
-  const preview =
-    document.getElementById("preview");
-
-  if (book.cover) {
-
-    preview.src = book.cover;
-    preview.style.display = "block";
-
-  } else {
-
-    preview.style.display = "none";
-
-  }
-
-  document.getElementById("form")
-    .classList.remove("hidden");
-
-  window.scrollTo(0, 0);
-}
-
-
-/* ===============
+  document.getElementById("statu
