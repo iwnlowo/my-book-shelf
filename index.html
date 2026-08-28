@@ -10,7 +10,7 @@
       font-family: sans-serif;
       background: #f7f4ef;
       margin: 0;
-      padding: 30px 20px;
+      padding: 24px 16px;
       color: #333;
     }
 
@@ -21,20 +21,267 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
-    .welcome {
+    .subtitle {
       text-align: center;
       color: #777;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
-    .menu {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 16px;
+      cursor: pointer;
     }
+
+    .add-button {
+      width: 100%;
+      background: #333;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin: 6px 0 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .book {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .book h3 {
+      margin: 0 0 6px;
+    }
+
+    .book p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .search {
+      margin-bottom: 20px;
+    }
+
+    .delete-button {
+      background: #eee;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>📚 我的書架</h1>
+
+  <p class="subtitle">你的私人閱讀空間</p>
+
+  <button class="add-button" onclick="showForm()">
+    ＋ 新增書籍
+  </button>
+
+  <div id="form" class="form hidden">
+
+    <h2>新增書籍</h2>
+
+    <label>書名</label>
+    <input id="title" type="text" placeholder="例如：臺灣漫遊錄">
+
+    <label>作者</label>
+    <input id="author" type="text" placeholder="作者姓名">
+
+    <label>分類</label>
+    <input id="category" type="text" placeholder="例如：小說、散文">
+
+    <label>閱讀狀態</label>
+    <select id="status">
+      <option value="未讀">未讀</option>
+      <option value="閱讀中">閱讀中</option>
+      <option value="已讀">已讀</option>
+      <option value="暫停">暫停</option>
+    </select>
+
+    <label>評分</label>
+    <select id="rating">
+      <option value="0">尚未評分</option>
+      <option value="1">⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
+
+    <label>我的心得</label>
+    <textarea id="review" placeholder="寫下你的閱讀感受……"></textarea>
+
+    <button onclick="addBook()">💾 儲存書籍</button>
+    <button onclick="hideForm()">取消</button>
+
+  </div>
+
+  <input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="🔍 搜尋書名或作者……"
+    oninput="displayBooks()"
+  >
+
+  <div id="books"></div>
+
+</div>
+
+<script>
+
+  let books = JSON.parse(localStorage.getItem("myBooks")) || [];
+
+  function saveBooks() {
+    localStorage.setItem("myBooks", JSON.stringify(books));
+  }
+
+  function showForm() {
+    document.getElementById("form").classList.remove("hidden");
+  }
+
+  function hideForm() {
+    document.getElementById("form").classList.add("hidden");
+  }
+
+  function addBook() {
+
+    const title = document.getElementById("title").value.trim();
+    const author = document.getElementById("author").value.trim();
+    const category = document.getElementById("category").value.trim();
+    const status = document.getElementById("status").value;
+    const rating = document.getElementById("rating").value;
+    const review = document.getElementById("review").value.trim();
+
+    if (!title) {
+      alert("請先輸入書名！");
+      return;
+    }
+
+    const book = {
+      id: Date.now(),
+      title,
+      author,
+      category,
+      status,
+      rating,
+      review
+    };
+
+    books.push(book);
+    saveBooks();
+
+    document.getElementById("title").value = "";
+    document.getElementById("author").value = "";
+    document.getElementById("category").value = "";
+    document.getElementById("review").value = "";
+
+    hideForm();
+    displayBooks();
+  }
+
+  function deleteBook(id) {
+
+    books = books.filter(book => book.id !== id);
+
+    saveBooks();
+    displayBooks();
+  }
+
+  function displayBooks() {
+
+    const container = document.getElementById("books");
+    const keyword = document.getElementById("search").value.toLowerCase();
+
+    const filteredBooks = books.filter(book =>
+      book.title.toLowerCase().includes(keyword) ||
+      book.author.toLowerCase().includes(keyword)
+    );
+
+    if (filteredBooks.length === 0) {
+      container.innerHTML =
+        "<p style='text-align:center;color:#999;'>目前還沒有書籍 📚</p>";
+      return;
+    }
+
+    container.innerHTML = filteredBooks.map(book => {
+
+      const stars = book.rating > 0
+        ? "⭐".repeat(Number(book.rating))
+        : "尚未評分";
+
+      return `
+        <div class="book">
+
+          <h3>${book.title}</h3>
+
+          <p>作者：${book.author || "未填寫"}</p>
+
+          <p>分類：${book.category || "未分類"}</p>
+
+          <p>狀態：${book.status}</p>
+
+          <p>評分：${stars}</p>
+
+          ${
+            book.review
+            ? `<p>📝 ${book.review}</p>`
+            : ""
+          }
+
+          <button
+            class="delete-button"
+            onclick="deleteBook(${book.id})">
+            刪除
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+  }
+
+  displayBooks();
+
+</script>
+
+</body>
+</html>    }
 
     button {
       padding: 20px;
