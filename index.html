@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的書架</title>
 
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f7f4ef;
+      margin: 0;
+      padding: 30px 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .welcome {
+      text-align: center;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    button {
+      padding: 20px;
+      border: none;
+      border-radius: 15px;
+      background: white;
+      font-size: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>📚 我的書架</h1>
+
+    <p class="welcome">
+      歡迎來到你的私人閱讀空間。
+    </p>
+
+    <div class="menu">
+      <button>📚 我的書櫃</button>
+      <button>📖 正在閱讀</button>
+      <button>📋 待閱書單</button>
+      <button>💡 推薦書單</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
