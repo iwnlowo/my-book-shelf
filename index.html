@@ -657,7 +657,13 @@ textarea {
   </button>
 
   <h1>📋 我的待閱書單</h1>
-
+<button
+  class="add-button"
+  id="addReadingBookButton"
+>
+  ＋ 新增待閱書籍
+</button>
+  
   <div id="readingListContent"></div>
 
   <div class="reminder">
@@ -814,7 +820,46 @@ let selectedStatus = "全部";
 
 let selectedReadingBook = null;
 
+/* =====================================================
+   待閱書單｜新增
+===================================================== */
 
+document
+  .getElementById("addReadingBookButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      const title =
+        prompt("請輸入書名：");
+
+      if (!title) {
+        return;
+      }
+
+      const author =
+        prompt("請輸入作者（可以留空）：") || "";
+
+      const category =
+        prompt("請輸入分類：") ||
+        "🧠 一、心理、自我與成長";
+
+      readingCategories.push({
+
+        title: category,
+
+        books: [
+          [title, author]
+        ]
+
+      });
+
+      displayReadingList();
+
+      alert("已加入待閱書單！📚");
+
+    }
+  );
 /* =========================
    儲存書架資料
 ========================= */
@@ -1974,7 +2019,7 @@ function editBook(id) {
  * 完整待閱書單資料
  */
 
-const readingCategories = [
+let readingCategories = [
 
   {
     title: "🧠 一、心理、自我與成長",
