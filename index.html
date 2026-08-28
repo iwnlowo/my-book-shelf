@@ -2209,5 +2209,1082 @@ console.log(
   "目前書籍數量：",
   books.length
 );
+<!-- =====================================================
+     第三段：待閱書單＋金惠奫書單＋頁面按鈕
+===================================================== -->
 
+<script>
+
+/* =====================================================
+   首頁按鈕
+===================================================== */
+
+document.getElementById("goShelf").addEventListener(
+  "click",
+  function () {
+    showPage("shelf");
+  }
+);
+
+
+document.getElementById("goReadingList").addEventListener(
+  "click",
+  function () {
+    showPage("readingList");
+  }
+);
+
+
+document.getElementById("goRecommended").addEventListener(
+  "click",
+  function () {
+    showPage("recommended");
+  }
+);
+
+
+document.getElementById("goReviews").addEventListener(
+  "click",
+  function () {
+    showPage("reviews");
+  }
+);
+
+
+/* =====================================================
+   返回首頁
+===================================================== */
+
+document.getElementById("backFromShelf").addEventListener(
+  "click",
+  function () {
+    showPage("home");
+  }
+);
+
+
+document.getElementById("backFromReadingList").addEventListener(
+  "click",
+  function () {
+    showPage("home");
+  }
+);
+
+
+document.getElementById("backFromRecommended").addEventListener(
+  "click",
+  function () {
+    showPage("home");
+  }
+);
+
+
+document.getElementById("backFromReviews").addEventListener(
+  "click",
+  function () {
+    showPage("home");
+  }
+);
+
+
+/* =====================================================
+   新增／儲存／取消
+===================================================== */
+
+document.getElementById("addBookButton").addEventListener(
+  "click",
+  function () {
+    showAddForm();
+  }
+);
+
+
+document.getElementById("saveBookButton").addEventListener(
+  "click",
+  function () {
+    saveBook();
+  }
+);
+
+
+document.getElementById("cancelFormButton").addEventListener(
+  "click",
+  function () {
+    hideForm();
+  }
+);
+
+
+/* =====================================================
+   搜尋
+===================================================== */
+
+document.getElementById("search").addEventListener(
+  "input",
+  function () {
+    displayBooks();
+  }
+);
+
+
+/* =====================================================
+   分類篩選
+===================================================== */
+
+document
+  .querySelectorAll("#categoryFilters .filter-button")
+  .forEach(function (button) {
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        selectedCategory =
+          button.dataset.category;
+
+
+        document
+          .querySelectorAll(
+            "#categoryFilters .filter-button"
+          )
+          .forEach(function (item) {
+
+            item.classList.remove("active");
+
+          });
+
+
+        button.classList.add("active");
+
+        displayBooks();
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   閱讀狀態篩選
+===================================================== */
+
+document
+  .querySelectorAll("#statusFilters .filter-button")
+  .forEach(function (button) {
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        selectedStatus =
+          button.dataset.status;
+
+
+        document
+          .querySelectorAll(
+            "#statusFilters .filter-button"
+          )
+          .forEach(function (item) {
+
+            item.classList.remove("active");
+
+          });
+
+
+        button.classList.add("active");
+
+        displayBooks();
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   待閱書單
+===================================================== */
+
+const readingListData = [
+
+  {
+    category: "🧠 心理、自我與成長",
+    books: [
+      "《我們為什麼對好事麻木、對壞事容忍？：習慣化如何左右人生 Look Again》",
+      "《自我的追尋：倫理學的心理學探究》｜埃里希・佛洛姆",
+      "《失控的照護》",
+      "《自我慈悲》｜克莉絲汀・聶夫",
+      "《依附》",
+      "《蛤蟆先生去看心理師》｜羅伯特・戴博德",
+      "《也許你該找個人聊聊》｜洛莉・葛利布",
+      "《情緒勒索》｜蘇珊・佛沃、蘿拉・薩克",
+      "《少有人走的路》｜M. Scott Peck",
+      "《4%的人毫無良知，我該怎麼辦》｜瑪莎・史陶特",
+      "《好女孩症候群》",
+      "《良性羞恥》",
+      "《始於極限》",
+      "《雨落池中，為何還堅持游泳》｜喬治・桑德斯",
+      "《垃圾場長大的自學人生》｜塔拉・韋斯特弗",
+      "《做自己的生命設計師》",
+      "《理想主義者的養成》",
+      "《隨他們去》",
+      "《我在日本熊野古道找回自己》",
+      "《情緒靈敏力》｜蘇珊・大衛",
+      "《正念的奇蹟》｜一行禪師",
+      "《界線》｜亨利・克勞德、約翰・湯森德",
+      "《活出意義來》｜維克多・弗蘭克",
+      "《愛的藝術》｜艾瑞克・佛洛姆",
+      "《存在的勇氣》｜保羅・田立克"
+    ]
+  },
+
+
+  {
+    category: "🫂 性別、關係、身分與社會",
+    books: [
+      "《最小的女兒》",
+      "《美的奴役》",
+      "《想要：匿名女性的性幻想》｜吉蓮・安德森",
+      "《那些少女沒有抵達》｜吳曉樂",
+      "《誰是外來者》",
+      "《厭女》｜上野千鶴子",
+      "《我的性別認同是一架攻擊直升機》",
+      "《對男人一無所知的我》",
+      "《集合體》",
+      "《花開若是有聲音》｜陳凱琳",
+      "《水族》",
+      "《保留地》",
+      "《盤根之森》"
+    ]
+  },
+
+
+  {
+    category: "🌍 世界、社會、政治與權力",
+    books: [
+      "《黑潮：從關鍵的一九七九年，剖析中東文化、宗教、集體記憶的四十年難解對立》",
+      "《當我們不再理解世界》｜班・雅明・拉布圖",
+      "《權力》",
+      "《槍砲、病菌與鋼鐵》｜賈德・戴蒙",
+      "《盛世之鑰》",
+      "《幹部國家》｜費約翰",
+      "《克里姆林宮的餐桌》",
+      "《太陽與生命之樹》",
+      "《北韓人民的真實生活》",
+      "《愛國者納瓦尼》",
+      "《寂靜的春天》｜瑞秋・卡森",
+      "《沒有土壤的世界》",
+      "《普通人不會揹著機關槍》",
+      "《人類大歷史》｜尤瓦爾・赫拉利",
+      "《未來簡史》｜尤瓦爾・赫拉利",
+      "《規訓與懲罰》｜米歇爾・傅柯",
+      "《想像的共同體》｜班納迪克・安德森",
+      "《娛樂至死》｜尼爾・波茲曼"
+    ]
+  },
+
+
+  {
+    category: "🇹🇼 臺灣史、臺灣社會與認同",
+    books: [
+      "《叮咚！簽收臺灣史──過去給未來的33個物語》",
+      "《看得見的台灣史》",
+      "《綠島》",
+      "《逃離中國：現代臺灣的創傷、記憶與認同》",
+      "《台灣的李登輝時代》｜林孝庭",
+      "《燈塔行》",
+      "《見樹又見林》",
+      "《書頁中的永恆》",
+      "《笑忘書》",
+      "《海鯤破浪：台灣潛艦發展史與國防自主之路》"
+    ]
+  },
+
+
+  {
+    category: "📚 臺灣文學",
+    books: [
+      "《單車失竊記》｜吳明益",
+      "《睡眠的航線》｜吳明益",
+      "《織》｜張郅忻",
+      "《海市》｜張郅忻",
+      "《山鏡》｜張郅忻",
+      "《泥土》｜吳晟",
+      "《大港的女兒》｜陳柔縉",
+      "《反重力》｜黃崇凱",
+      "《一位女性殺人犯的素描》｜胡慕情",
+      "《當太陽墜毀在哈因沙山》｜朱和之",
+      "《樓上的好人》｜陳思宏",
+      "《沒口之河》｜黃瀚嶢",
+      "《我隨意你盡量》｜王昭華",
+      "《菊花如何夜行軍》｜鍾永豐",
+      "《福島漂流記》｜蔡易澄",
+      "《林青霞的散文》｜林青霞",
+      "《零雨的詩》｜零雨",
+      "吳明益作品",
+      "陳柔縉作品"
+    ]
+  },
+
+
+  {
+    category: "📖 世界文學、小說與哲學",
+    books: [
+      "《異域》｜柏楊",
+      "《滇緬孤軍史》",
+      "《異域（續集／相關口述史版本）》",
+      "《最小的女兒》",
+      "《湖濱散記》｜亨利・大衛・梭羅",
+      "《理性與感性》｜珍・奧斯汀",
+      "《雅各之書》｜奧爾嘉・朵卡萩",
+      "《逃亡者手記》",
+      "《涅朵奇卡：一個女人的一生》｜杜斯妥也夫斯基",
+      "《生命中不能承受之輕》｜米蘭・昆德拉",
+      "《渺小一生》｜柳原漢雅",
+      "《惶然錄》｜費爾南多・佩索亞",
+      "《白夜行》｜東野圭吾",
+      "《祈念之樹》｜東野圭吾",
+      "《麗塔海華絲與鯊堡監獄的救贖》｜史蒂芬・金",
+      "《給未來的讀者》",
+      "《小鳥與理夢人》",
+      "《送書人》",
+      "《有去無回的地方》",
+      "《有去無回的地方：一個維吾爾女孩在新疆「再教育營」的真實經歷》",
+      "《等待在夜裡被捕》｜塔伊爾・哈木提・伊茲格爾",
+      "《難民也有派對》",
+      "《卡拉馬助夫兄弟們》｜杜斯妥也夫斯基",
+      "卡繆作品",
+      "赫曼・赫塞作品",
+      "吳明益作品",
+      "陳柔縉作品",
+      "《追風箏的孩子》｜卡勒德・胡賽尼",
+      "《燦爛千陽》｜卡勒德・胡賽尼",
+      "《安妮的日記》｜安妮・法蘭克",
+      "《戰地鐘聲》｜海明威",
+      "《西線無戰事》｜埃里希・瑪麗亞・雷馬克",
+      "《夜》｜艾利・維瑟爾",
+      "《徬徨少年時》（原名《德米安》）｜赫曼・赫塞",
+      "《華氏451度》｜雷・布萊伯利",
+      "《不然你搬去火星啊》｜伊坂幸太郎",
+      "《沉睡人魚之家》｜東野圭吾"
+    ]
+  },
+
+
+  {
+    category: "🇰🇷 韓國文學與其他作家",
+    books: [
+      "《少年來了》｜韓江",
+      "金愛爛",
+      "中山七里",
+      "石黑一雄",
+      "佛洛姆"
+    ]
+  },
+
+
+  {
+    category: "🌿 自然、環境與生命",
+    books: [
+      "《寂靜的春天》｜瑞秋・卡森",
+      "《沒有土壤的世界》",
+      "《湖濱散記》｜亨利・大衛・梭羅",
+      "《我在日本熊野古道找回自己》",
+      "《太陽與生命之樹》",
+      "《成為一座山》",
+      "《樹的秘密生命》｜彼得・渥雷本"
+    ]
+  },
+
+
+  {
+    category: "⚔️ 戰爭、歷史記憶與苦難",
+    books: [
+      "《愛國者納瓦尼》",
+      "《異域》｜柏楊",
+      "《滇緬孤軍史》",
+      "《異域（續集／相關口述史版本）》",
+      "《屠殺》",
+      "《逃亡者手記》",
+      "《普通人不會揹著機關槍》",
+      "《渺小一生》｜柳原漢雅",
+      "《難民也有派對》",
+      "《有去無回的地方：一個維吾爾女孩在新疆「再教育營」的真實經歷》",
+      "《等待在夜裡被捕》｜塔伊爾・哈木提・伊茲格爾"
+    ]
+  },
+
+
+  {
+    category: "🇨🇳 中國、香港、新疆與威權政治",
+    books: [
+      "《唯紅花綻放》｜馮哲芸",
+      "《黑甲山的微光》｜戴倫・拜勒",
+      "《中國製造：從躺平、小粉紅到正能量，當代中國流行語背後的真實社會》｜紀野、石路",
+      "《抖音帝國：TikTok夾在中國與美國之間的商戰野心》｜艾蜜莉・貝克懷特",
+      "《滾出中國》｜畢可思",
+      "《牆國誌》｜詹姆斯・格里菲斯",
+      "《美中開戰的終極指南》｜彼得・納瓦羅",
+      "《中國戰狼外交》｜馬越",
+      "《中共間諜戰術全解析》｜尼可拉斯・艾夫提米亞迪斯",
+      "《紅色賭盤》｜沈棟",
+      "《紅色滲透》｜何清漣",
+      "《中國：潰而不崩》｜何清漣、程曉農",
+      "《獨生》｜方鳳美",
+      "《與習近平聊聊台灣和中國》｜范疇",
+      "《武漢封城日記》｜郭晶",
+      "《黑手：揭穿中國共產黨如何改造世界》｜克萊夫・漢密爾頓",
+      "《中華秩序：中原、世界帝國，與中國力量的本質》｜王飛凌",
+      "《解放的悲劇》｜馮客",
+      "《毛澤東的大饑荒》｜馮客",
+      "《文化大革命》｜馮客",
+      "《獨裁者聯盟》｜安愛波邦",
+      "《有去無回的地方》｜米日古麗・圖爾蓀、安德莉亞・C・霍夫曼",
+      "《新疆：被中共支配的七十年》｜熊倉潤",
+      "《中國威權之謎》｜黎安友",
+      "《中國模式的終點》｜黃亞生",
+      "《吃佛》｜芭芭拉・德米克",
+      "《在骸骨上漫舞》｜凱蒂・史塔拉德",
+      "《極權基因》｜凱蒂・史塔拉德",
+      "《養共為患》｜余杰",
+      "《美國百年外交大敗局》｜余杰",
+      "《等待在夜裡被捕》｜塔伊爾・哈木提・伊茲格爾"
+    ]
+  },
+
+
+  {
+    category: "🏪 關於香港獨立書店",
+    books: [
+      "3月｜一拳書店",
+      "6月｜獵人書店",
+      "7月｜田園書屋、留下書舍"
+    ]
+  },
+
+
+  {
+    category: "⚔️ 《終戰那一天》延伸書單",
+    books: [
+      "《無處安放的記憶：重溯／塑台灣人的二戰經驗》",
+      "《在東亞跨界流離的人生：老兵的臺灣史》",
+      "《最後的雄鷹：一位台籍日軍飛行員的戰時日記》",
+      "《叛逆的天空：黃華昌回憶錄【增訂新版】》｜黃華昌",
+      "《擁有兩個祖國的臺灣少年工》",
+      "《白衣天使的未竟戰爭：臺灣從軍看護婦廖淑霞的生命故事》",
+      "《左營二戰祕史：震洋特攻隊駐臺始末》",
+      "《轟鳴未曾遠去：從日本海軍第六十一航空廠到岡山醒村》",
+      "《永遠的台灣島：一九四五年，舊制台北高校生眼中敗戰的台北》",
+      "《戰爭中的美術：二戰下臺灣的時局畫》",
+      "《帝國之門：日治時期南進擴張浪潮下的臺灣人》",
+      "《流轉臺灣的沖繩人：被帝國烙印的生命之旅》",
+      "《魔之濕地：台灣第五回高砂義勇隊 日本軍官證言》",
+      "《臺灣慰安婦》",
+      "《離散與回歸：在滿洲的臺灣人（1905-1948）》",
+      "《慢船向西：日本時代臺灣人醫師在中國》",
+      "《冰封的記憶：尋找西伯利亞戰俘營的臺籍日本兵》",
+      "《零下六十八度：二戰後臺灣人的西伯利亞戰俘經驗》",
+      "《告別南國：在台日人「引揚」研究》",
+      "《當帝國回到家：戰後日本的遣返與重整》",
+      "《關鍵七十一天》",
+      "《神明離去之後：臺灣神社的收藏物語》"
+    ]
+  },
+
+
+  {
+    category: "🎨 藝術、美學與觀看",
+    books: [
+      "《觀看之道》｜約翰・伯格",
+      "《藝術的故事》｜E.H. 貢布里希"
+    ]
+  },
+
+
+  {
+    category: "🎭 劇",
+    books: [
+      "《雙面葛蕾絲》"
+    ]
+  },
+
+
+  {
+    category: "🎬 電影",
+    books: [
+      "《快樂腳2》",
+      "《海邊的曼徹斯特》",
+      "《宛如天堂》",
+      "《異域》",
+      "《刺激1995》",
+      "《紅氣球》",
+      "《忐忑》",
+      "《倫敦生活》",
+      "《白日夢冒險王》",
+      "《粗獷派建築師》"
+    ]
+  },
+
+
+  {
+    category: "🎥 紀錄片",
+    books: [
+      "《非法的正義》",
+      "《達賴的一生》",
+      "《終戰那一天》",
+      "《時代革命》"
+    ]
+  },
+
+
+  {
+    category: "🏆 文學獎與閱讀方向",
+    books: [
+      "諾貝爾文學獎",
+      "國際布克獎"
+    ]
+  },
+
+
+  {
+    category: "✍🏻 想認識的作家",
+    books: [
+      "金愛爛",
+      "中山七里",
+      "石黑一雄",
+      "林青霞",
+      "零雨",
+      "佛洛姆",
+      "吳明益",
+      "韓江",
+      "赫曼・赫塞",
+      "村上春樹",
+      "東野圭吾"
+    ]
+  }
+
+];
+
+
+/* =====================================================
+   顯示待閱書單
+===================================================== */
+
+function renderReadingList() {
+
+  const target =
+    document.querySelector("#readingList .coming-soon");
+
+
+  if (!target) {
+    return;
+  }
+
+
+  let html = "";
+
+  html += `
+    <div style="
+      text-align:left;
+      line-height:1.8;
+    ">
+  `;
+
+
+  html += `
+    <div style="
+      background:#fff7fa;
+      padding:16px;
+      border-radius:14px;
+      margin-bottom:20px;
+    ">
+      <strong>📖 我的閱讀方式</strong>
+
+      <p>
+        每讀完一本書，只要練習回答三個問題就好：
+      </p>
+
+      <p>
+        📖 這本書哪一句話或哪一幕最觸動我？<br>
+        💭 它讓我想到什麼人、什麼經歷或什麼議題？<br>
+        🌱 它有沒有改變我一點點看世界的方式？
+      </p>
+
+      <p>
+        書單很長，沒有關係。<br>
+        慢慢讀，慢慢想，慢慢生活。
+      </p>
+    </div>
+  `;
+
+
+  readingListData.forEach(function(section) {
+
+    html += `
+      <div style="
+        background:white;
+        padding:16px;
+        border-radius:16px;
+        margin-bottom:16px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.04);
+      ">
+    `;
+
+
+    html += `
+      <h2 style="
+        font-size:20px;
+        margin-top:0;
+      ">
+        ${section.category}
+      </h2>
+    `;
+
+
+    html += `<ul style="padding-left:22px;">`;
+
+
+    section.books.forEach(function(book) {
+
+      html += `
+        <li style="
+          margin-bottom:8px;
+        ">
+          ${book}
+        </li>
+      `;
+
+    });
+
+
+    html += "</ul>";
+
+    html += "</div>";
+
+  });
+
+
+  html += `
+    <div style="
+      background:#fff7fa;
+      padding:18px;
+      border-radius:16px;
+      line-height:1.9;
+    ">
+      <strong>🌱 我的閱讀提醒</strong>
+
+      <p>
+        這是一份待閱書單，不是待辦事項。
+      </p>
+
+      <p>
+        我不需要把它全部讀完，也不需要按照順序閱讀，
+        更不需要用閱讀量證明自己。
+      </p>
+
+      <p>
+        有興趣，就讀。<br>
+        想停，就停。<br>
+        現在讀不下去，就換一本。
+      </p>
+
+      <p>
+        跟著好奇心讀，而不是跟著數量讀。
+      </p>
+
+      <p>
+        閱讀可以是認識世界的方式，也可以是認識自己的方式。
+      </p>
+
+      <p>
+        閱讀不是為了成為某一種人。<br>
+        只是因為我對這個世界還有很多好奇。
+      </p>
+
+      <p>
+        <strong>
+          慢慢讀，慢慢想，慢慢生活。
+        </strong>
+      </p>
+
+    </div>
+  `;
+
+
+  html += "</div>";
+
+
+  target.innerHTML = html;
+
+}
+
+
+/* =====================================================
+   金惠奫書單
+===================================================== */
+
+function renderRecommended() {
+
+  const target =
+    document.querySelector("#recommended .coming-soon");
+
+
+  if (!target) {
+    return;
+  }
+
+
+  target.innerHTML = `
+    <div style="
+      text-align:left;
+      line-height:1.8;
+    ">
+
+      <div style="
+        background:#fff7fa;
+        padding:16px;
+        border-radius:14px;
+        margin-bottom:18px;
+      ">
+        <h2>
+          📚 金惠奫｜閱讀／推薦書單
+        </h2>
+
+        <p>
+          以下書單彙整自公開訪談、活動、影片等資料。
+        </p>
+
+        <p>
+          ⚠️「閱讀過」、「推薦過」、「參與朗讀」
+          並不完全相同，因此依目前資料標註可信程度。
+        </p>
+      </div>
+
+
+      <div style="
+        background:white;
+        padding:16px;
+        border-radius:16px;
+        margin-bottom:14px;
+      ">
+
+        <h3>🟢 已有較明確公開資料</h3>
+
+        <p>
+          <strong>01｜《福爾摩斯探案全集》</strong><br>
+          作者：亞瑟・柯南・道爾<br>
+          金惠奫相關：曾公開提及自己喜歡《福爾摩斯》。
+        </p>
+
+        <p>
+          <strong>02｜《刺殺騎士團長》</strong><br>
+          作者：村上春樹<br>
+          金惠奫相關：曾在訪談中提到自己正在閱讀這本書。
+        </p>
+
+        <p>
+          <strong>03｜《身分／身分認同》</strong><br>
+          作者：米蘭・昆德拉<br>
+          金惠奫相關：曾公開推薦昆德拉的《정체성》。
+        </p>
+
+        <p>
+          <strong>04｜《為什麼魚不存在》</strong><br>
+          作者：Lulu Miller<br>
+          金惠奫相關：曾在粉絲簽名會中回答粉絲提問時推薦。
+        </p>
+
+        <p>
+          <strong>05｜《哈利波特》系列</strong><br>
+          作者：J.K. 羅琳<br>
+          金惠奫是明確的《哈利波特》愛好者。
+        </p>
+
+      </div>
+
+
+      <div style="
+        background:white;
+        padding:16px;
+        border-radius:16px;
+        margin-bottom:14px;
+      ">
+
+        <h3>🟡 有公開關聯，但不能直接等同於推薦</h3>
+
+        <p>
+          <strong>06｜《地球上唯一的韓亞》</strong><br>
+          作者：鄭世朗<br>
+          金惠奫曾參與這本書的朗讀活動。
+        </p>
+
+        <p>
+          因此比較準確的說法是：
+          「金惠奫曾參與朗讀」，
+          而不是直接稱為「金惠奫推薦的書」。
+        </p>
+
+      </div>
+
+
+      <div style="
+        background:white;
+        padding:16px;
+        border-radius:16px;
+        margin-bottom:14px;
+      ">
+
+        <h3>🔴 目前尚缺乏足夠公開資料確認</h3>
+
+        <p>
+          <strong>07｜《歡迎光臨夢境百貨》</strong><br>
+          作者：李美芮
+        </p>
+
+        <p>
+          <strong>08｜《我是遺物整理師》</strong><br>
+          作者：金完
+        </p>
+
+        <p>
+          目前不宜直接標示為金惠奫本人閱讀或推薦。
+        </p>
+
+      </div>
+
+
+      <div style="
+        background:#fff7fa;
+        padding:16px;
+        border-radius:16px;
+      ">
+
+        <h3>📌 簡易版</h3>
+
+        <p>
+          1. 《福爾摩斯探案全集》｜亞瑟・柯南・道爾<br>
+          2. 《刺殺騎士團長》｜村上春樹<br>
+          3. 《身分／身分認同》｜米蘭・昆德拉<br>
+          4. 《為什麼魚不存在》｜Lulu Miller<br>
+          5. 《哈利波特》系列｜J.K. 羅琳<br>
+          6. 《地球上唯一的韓亞》｜鄭世朗<br>
+          7. 《歡迎光臨夢境百貨》｜李美芮<br>
+          8. 《我是遺物整理師》｜金完
+        </p>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =====================================================
+   初始化
+===================================================== */
+
+renderReadingList();
+
+renderRecommended();
+
+displayBooks();
+
+/* =====================================================
+   書籍詳細頁
+===================================================== */
+
+function openBookDetail(id) {
+
+  const book = books.find(function(item) {
+    return String(item.id) === String(id);
+  });
+
+  if (!book) {
+    return;
+  }
+
+  const detail = document.getElementById("bookDetail");
+
+  if (!detail) {
+    return;
+  }
+
+  detail.innerHTML = "";
+
+  const backButton = document.createElement("button");
+  backButton.className = "back-button";
+  backButton.textContent = "← 回我的書架";
+
+  backButton.addEventListener("click", function() {
+    showPage("shelf");
+  });
+
+  detail.appendChild(backButton);
+
+
+  const title = document.createElement("h1");
+
+  title.textContent =
+    "《" + (book.title || "未命名書籍") + "》";
+
+  detail.appendChild(title);
+
+
+  const card = document.createElement("div");
+
+  card.className = "book-detail-card";
+
+
+  if (book.cover) {
+
+    const cover = document.createElement("img");
+
+    cover.className = "detail-cover";
+
+    cover.src = book.cover;
+
+    cover.alt =
+      "《" + (book.title || "書籍") + "》書封";
+
+    card.appendChild(cover);
+
+  }
+
+
+  const info = document.createElement("div");
+
+  info.className = "detail-info";
+
+
+  const author = document.createElement("p");
+
+  author.textContent =
+    "作者：" + (book.author || "未填寫");
+
+  info.appendChild(author);
+
+
+  const category = document.createElement("p");
+
+  category.textContent =
+    "分類：" + (book.category || "其他");
+
+  info.appendChild(category);
+
+
+  const status = document.createElement("p");
+
+  status.textContent =
+    "閱讀狀態：" + (book.status || "未讀");
+
+  info.appendChild(status);
+
+
+  const rating = document.createElement("p");
+
+  if (Number(book.rating) > 0) {
+
+    rating.textContent =
+      "評分：" + "⭐".repeat(Number(book.rating));
+
+  } else {
+
+    rating.textContent =
+      "評分：尚未評分";
+
+  }
+
+  info.appendChild(rating);
+
+
+  if (book.review) {
+
+    const reviewTitle =
+      document.createElement("h3");
+
+    reviewTitle.textContent =
+      "📝 我的心得";
+
+    info.appendChild(reviewTitle);
+
+
+    const review =
+      document.createElement("p");
+
+    review.textContent =
+      book.review;
+
+    info.appendChild(review);
+
+  }
+
+
+  const actions =
+    document.createElement("div");
+
+  actions.className =
+    "detail-actions";
+
+
+  const editButton =
+    document.createElement("button");
+
+  editButton.className =
+    "primary-button";
+
+  editButton.textContent =
+    "✏️ 編輯這本書";
+
+
+  editButton.addEventListener(
+    "click",
+    function() {
+
+      showPage("shelf");
+
+      editBook(book.id);
+
+    }
+  );
+
+
+  actions.appendChild(editButton);
+
+
+  const deleteButton =
+    document.createElement("button");
+
+  deleteButton.className =
+    "secondary-button";
+
+  deleteButton.textContent =
+    "🗑️ 刪除";
+
+
+  deleteButton.addEventListener(
+    "click",
+    function() {
+
+      deleteBook(book.id);
+
+      showPage("shelf");
+
+    }
+  );
+
+
+  actions.appendChild(deleteButton);
+
+  info.appendChild(actions);
+
+  card.appendChild(info);
+
+  detail.appendChild(card);
+
+  showPage("bookDetail");
+
+}
+</body>
+</html>
   </script>
