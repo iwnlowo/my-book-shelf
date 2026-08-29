@@ -821,8 +821,35 @@ let selectedStatus = "全部";
 let selectedReadingBook = null;
 
 /* =====================================================
-   待閱書單｜新增
+   待閱書單｜新增＋自動儲存
 ===================================================== */
+
+function saveReadingCategories() {
+
+  try {
+
+    localStorage.setItem(
+      "myReadingCategories",
+      JSON.stringify(readingCategories)
+    );
+
+    return true;
+
+  } catch (error) {
+
+    console.error(
+      "儲存待閱書單失敗：",
+      error
+    );
+
+    alert("待閱書單儲存失敗。");
+
+    return false;
+
+  }
+
+}
+
 
 document
   .getElementById("addReadingBookButton")
@@ -833,7 +860,7 @@ document
       const title =
         prompt("請輸入書名：");
 
-      if (!title) {
+      if (!title || !title.trim()) {
         return;
       }
 
@@ -841,22 +868,54 @@ document
         prompt("請輸入作者（可以留空）：") || "";
 
       const category =
-        prompt("請輸入分類：") ||
+        prompt(
+          "請輸入分類：\n\n例如：🧠 一、心理、自我與成長"
+        ) ||
         "🧠 一、心理、自我與成長";
 
-      readingCategories.push({
 
-        title: category,
+      let targetCategory =
+        readingCategories.find(
+          function(item) {
 
-        books: [
-          [title, author]
-        ]
+            return item.title ===
+              category.trim();
 
-      });
+          }
+        );
+
+
+      if (!targetCategory) {
+
+        targetCategory = {
+
+          title:
+            category.trim(),
+
+          books: []
+
+        };
+
+        readingCategories.push(
+          targetCategory
+        );
+
+      }
+
+
+      targetCategory.books.push([
+        title.trim(),
+        author.trim()
+      ]);
+
+
+      saveReadingCategories();
 
       displayReadingList();
 
-      alert("已加入待閱書單！📚");
+      alert(
+        "已加入待閱書單！📚"
+      );
 
     }
   );
