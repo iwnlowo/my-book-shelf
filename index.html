@@ -2401,7 +2401,41 @@ let readingCategories = [
 
 ];
 
+/* =====================================================
+   讀取已儲存的待閱書單
+===================================================== */
 
+try {
+
+  const savedReadingCategories =
+    localStorage.getItem(
+      "myReadingCategories"
+    );
+
+  if (savedReadingCategories) {
+
+    const parsed =
+      JSON.parse(
+        savedReadingCategories
+      );
+
+    if (Array.isArray(parsed)) {
+
+      readingCategories =
+        parsed;
+
+    }
+
+  }
+
+} catch (error) {
+
+  console.error(
+    "讀取待閱書單失敗：",
+    error
+  );
+
+  }
 /* =====================================================
    顯示待閱書單
 ===================================================== */
@@ -2731,6 +2765,107 @@ function createRandomBookButton() {
 displayBooks();
 
 displayReadingList();
+  /* =====================================================
+   待閱書單｜新增書籍視窗
+===================================================== */
+
+document
+  .getElementById("addReadingBookButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      const title =
+        prompt("📖 請輸入書名：");
+
+      if (!title || !title.trim()) {
+        return;
+      }
+
+      const author =
+        prompt("✍️ 請輸入作者（可以留空）：") || "";
+
+      const categoryNames =
+        readingCategories.map(
+          function(category) {
+            return category.title;
+          }
+        );
+
+      const categoryText =
+        categoryNames
+          .map(
+            function(name, index) {
+              return (
+                (index + 1) +
+                ". " +
+                name
+              );
+            }
+          )
+          .join("\n");
+
+      const categoryChoice =
+        prompt(
+          "🏷️ 請選擇分類，輸入前面的數字：\n\n" +
+          categoryText
+        );
+
+      if (!categoryChoice) {
+        return;
+      }
+
+      const categoryIndex =
+        Number(categoryChoice) - 1;
+
+      if (
+        categoryIndex < 0 ||
+        categoryIndex >= readingCategories.length
+      ) {
+
+        alert("分類選擇無效。");
+
+        return;
+      }
+
+      readingCategories[
+        categoryIndex
+      ].books.push([
+        title.trim(),
+        author.trim()
+      ]);
+
+      try {
+
+        localStorage.setItem(
+          "myReadingCategories",
+          JSON.stringify(
+            readingCategories
+          )
+        );
+
+      } catch (error) {
+
+        console.error(
+          "儲存待閱書單失敗：",
+          error
+        );
+
+        alert(
+          "儲存失敗，請稍後再試。"
+        );
+
+        return;
+      }
+
+      displayReadingList();
+
+      alert(
+        "已加入待閱書單！📚✨"
+      );
+
+    }
+  );
 
 /* =====================================================
    今天讀什麼｜建立按鈕
