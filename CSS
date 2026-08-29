@@ -1,1 +1,378 @@
+* {
+  box-sizing: border-box;
+}
 
+body {
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Noto Sans TC",
+    "Microsoft JhengHei",
+    sans-serif;
+  background: #fff7fa;
+  color: #444;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  padding: 24px 16px 60px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+/* 首頁 */
+
+.home {
+  text-align: center;
+}
+
+.mascot {
+  font-size: 85px;
+  margin-top: 25px;
+  margin-bottom: 8px;
+}
+
+.welcome {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.quote {
+  color: #999;
+  margin-bottom: 35px;
+}
+
+.menu {
+  display: grid;
+  gap: 14px;
+}
+
+.menu-button {
+  width: 100%;
+  background: white;
+  border: none;
+  border-radius: 18px;
+  padding: 20px;
+  font-size: 18px;
+  text-align: left;
+  color: #444;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+
+.menu-button:active {
+  transform: scale(0.98);
+}
+
+.menu-icon {
+  font-size: 27px;
+  margin-right: 8px;
+}
+/* 共用 */
+
+h1 {
+  text-align: center;
+  margin: 10px 0 25px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+h3 {
+  margin-top: 24px;
+}
+
+.back-button {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: #444;
+}
+
+.add-button {
+  width: 100%;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.primary-button {
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-right: 6px;
+}
+
+.secondary-button {
+  background: #eee;
+  color: #444;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+.hidden {
+  display: none !important;
+}
+/* 表單 */
+
+.form {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  background: white;
+  color: #444;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.preview {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: none;
+  margin-bottom: 15px;
+}
+/* 搜尋 */
+
+.search {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+/* 篩選 */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.filter-button {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #555;
+}
+
+.filter-button.active {
+  background: #444;
+  color: white;
+  border-color: #444;
+}
+/* 我的書架 */
+
+.book {
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+  display: flex;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.cover {
+  width: 85px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #eee;
+  flex-shrink: 0;
+}
+
+.book-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.book h3 {
+  margin: 0 0 8px;
+  word-break: break-word;
+}
+
+.book p {
+  margin: 6px 0;
+  color: #777;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.book-actions {
+  margin-top: 12px;
+}
+
+.edit-button {
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-right: 5px;
+}
+
+.delete-button {
+  background: #eee;
+  color: #555;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+/* 待閱書單 */
+
+.reading-category {
+  margin-bottom: 28px;
+}
+
+.category-title {
+  background: white;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.reading-book {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: #444;
+  box-shadow: 0 2px 7px rgba(0,0,0,0.04);
+}
+.reading-book-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.reading-book-author {
+  font-size: 14px;
+  color: #999;
+  margin-top: 4px;
+}
+.reading-detail h2 {
+  line-height: 1.5;
+}
+
+.reading-detail .author {
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.tag {
+  display: inline-block;
+  background: #fff0f5;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+
+.reading-detail {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  line-height: 1.8;
+}
+/* 閱讀提醒 */
+
+.reminder {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 25px;
+  line-height: 1.8;
+}
+.reminder p {
+  margin: 8px 0;
+}
+/* 其他頁面 */
+
+.coming-soon {
+  text-align: center;
+  padding: 50px 20px;
+  background: white;
+  border-radius: 18px;
+  color: #888;
+  line-height: 1.8;
+}
+
+@media (max-width: 500px) {
+
+  .container {
+    padding: 20px 14px 50px;
+  }
+
+  .mascot {
+    font-size: 75px;
+  }
+  .welcome {
+    font-size: 22px;
+  }
+
+  .book {
+    padding: 13px;
+  }
+
+  .cover {
+    width: 72px;
+    height: 105px;
+  }
+
+}
