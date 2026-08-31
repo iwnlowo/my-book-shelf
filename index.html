@@ -1,0 +1,1186 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>簡易版書架</title>  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+      background: #f7f5f0;
+      color: #333;
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0 10px;
+      font-size: 30px;
+    }
+
+    h2 {
+      margin-top: 10px;
+      font-size: 26px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 40px;
+    }
+
+    .menu-button {
+      width: 100%;
+      padding: 20px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .menu-button:active {
+      transform: scale(0.98);
+    }
+
+    .back-button {
+      border: none;
+      background: none;
+      font-size: 16px;
+      padding: 5px 0;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .search-box,
+    .category-select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      margin: 8px 0;
+      background: white;
+    }
+
+    .add-button,
+    .import-button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    .add-button {
+      background: #333;
+    }
+
+    .import-button {
+      background: #777;
+    }
+
+    .book-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .book {
+      background: white;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .book-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .book-author {
+      color: #777;
+      margin-bottom: 8px;
+    }
+
+    .book-category {
+      display: inline-block;
+      font-size: 13px;
+      color: #666;
+      background: #f1eee8;
+      padding: 5px 9px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .book-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .book-actions button {
+      flex: 1;
+      padding: 9px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fafafa;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #999;
+      padding: 40px 10px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      background: white;
+    }
+
+    .form-button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: #333;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .cancel-button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      background: none;
+      color: #777;
+      font-size: 16px;
+      margin-top: 5px;
+      cursor: pointer;
+    }
+
+    .count {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+  </style></head><body>  <!-- =========================
+       主頁
+  ========================== -->  <section id="home" class="page active"><div class="container">
+
+  <h1>📚 簡易版書架</h1>
+
+  <p class="subtitle">
+    把想讀的書，好好收進自己的書架。
+  </p>
+
+  <button
+    type="button"
+    class="menu-button"
+    id="goReading"
+  >
+    📖 待閱書單
+  </button>
+
+  <button
+    type="button"
+    class="menu-button"
+    id="goFinished"
+  >
+    ✅ 閱畢書單
+  </button>
+
+</div>
+
+  </section>  <!-- =========================
+       待閱書單
+  ========================== -->  <section id="reading" class="page"><div class="container">
+
+  <button
+    type="button"
+    class="back-button"
+    id="backReading"
+  >
+    ← 回首頁
+  </button>
+
+  <h2>📖 待閱書單</h2>
+
+  <div
+    class="count"
+    id="readingCount"
+  ></div>
+
+  <input
+    type="text"
+    id="readingSearch"
+    class="search-box"
+    placeholder="🔍 搜尋書名或作者"
+  >
+
+  <select
+    id="readingCategory"
+    class="category-select"
+  >
+    <option value="all">📚 全部分類</option>
+    <option value="文學小說">📖 文學小說</option>
+    <option value="社會／人文">🧠 社會／人文</option>
+    <option value="歷史／政治">🏛️ 歷史／政治</option>
+    <option value="科普／心理">🧬 科普／心理</option>
+    <option value="職涯／成長">💼 職涯／成長</option>
+    <option value="旅行／生活">🌏 旅行／生活</option>
+    <option value="其他">📝 其他</option>
+  </select>
+
+  <button
+    type="button"
+    class="add-button"
+    id="openAdd"
+  >
+    ＋ 新增書籍
+  </button>
+
+  <button
+    type="button"
+    class="import-button"
+    id="importBooks"
+  >
+    📥 匯入書單
+  </button>
+
+  <div
+    id="readingList"
+    class="book-list"
+  ></div>
+
+</div>
+
+  </section>  <!-- =========================
+       閱畢書單
+  ========================== -->  <section id="finished" class="page"><div class="container">
+
+  <button
+    type="button"
+    class="back-button"
+    id="backFinished"
+  >
+    ← 回首頁
+  </button>
+
+  <h2>✅ 閱畢書單</h2>
+
+  <div
+    class="count"
+    id="finishedCount"
+  ></div>
+
+  <input
+    type="text"
+    id="finishedSearch"
+    class="search-box"
+    placeholder="🔍 搜尋書名或作者"
+  >
+
+  <select
+    id="finishedCategory"
+    class="category-select"
+  >
+    <option value="all">📚 全部分類</option>
+    <option value="文學小說">📖 文學小說</option>
+    <option value="社會／人文">🧠 社會／人文</option>
+    <option value="歷史／政治">🏛️ 歷史／政治</option>
+    <option value="科普／心理">🧬 科普／心理</option>
+    <option value="職涯／成長">💼 職涯／成長</option>
+    <option value="旅行／生活">🌏 旅行／生活</option>
+    <option value="其他">📝 其他</option>
+  </select>
+
+  <div
+    id="finishedList"
+    class="book-list"
+  ></div>
+
+</div>
+
+  </section>  <!-- =========================
+       新增書籍視窗
+  ========================== -->  <div
+    id="addModal"
+    class="modal"
+  ><div class="modal-content">
+
+  <h2>新增書籍</h2>
+
+  <label for="bookTitle">
+    書名
+  </label>
+
+  <input
+    type="text"
+    id="bookTitle"
+    class="form-input"
+    placeholder="輸入書名"
+  >
+
+  <label for="bookAuthor">
+    作者
+  </label>
+
+  <input
+    type="text"
+    id="bookAuthor"
+    class="form-input"
+    placeholder="輸入作者"
+  >
+
+  <label for="bookCategory">
+    分類
+  </label>
+
+  <select
+    id="bookCategory"
+    class="form-select"
+  >
+    <option value="文學小說">📖 文學小說</option>
+    <option value="社會／人文">🧠 社會／人文</option>
+    <option value="歷史／政治">🏛️ 歷史／政治</option>
+    <option value="科普／心理">🧬 科普／心理</option>
+    <option value="職涯／成長">💼 職涯／成長</option>
+    <option value="旅行／生活">🌏 旅行／生活</option>
+    <option value="其他">📝 其他</option>
+  </select>
+
+  <button
+    type="button"
+    class="form-button"
+    id="saveBook"
+  >
+    新增
+  </button>
+
+  <button
+    type="button"
+    class="cancel-button"
+    id="cancelAdd"
+  >
+    取消
+  </button>
+
+</div>
+
+  </div>  <!-- =========================
+       JavaScript
+  ========================== -->  <script>
+
+    let books = [];
+
+    const savedBooks =
+      localStorage.getItem("simpleBooks");
+
+    if (savedBooks) {
+
+      try {
+
+        books = JSON.parse(savedBooks);
+
+      } catch (error) {
+
+        books = [];
+
+      }
+
+    }
+
+
+    books.forEach(function(book) {
+
+      if (!book.category) {
+        book.category = "其他";
+      }
+
+    });
+
+
+    saveBooks();
+
+
+    // =========================
+    // 頁面切換
+    // =========================
+
+    function showPage(pageId) {
+
+      document
+        .querySelectorAll(".page")
+        .forEach(function(page) {
+
+          page.classList.remove("active");
+
+        });
+
+
+      const target =
+        document.getElementById(pageId);
+
+      if (target) {
+
+        target.classList.add("active");
+
+      }
+
+    }
+
+
+    // =========================
+    // 儲存
+    // =========================
+
+    function saveBooks() {
+
+      localStorage.setItem(
+        "simpleBooks",
+        JSON.stringify(books)
+      );
+
+    }
+
+
+    // =========================
+    // 顯示書籍
+    // =========================
+
+    function renderBooks(type) {
+
+      let list;
+      let search;
+      let category;
+
+
+      if (type === "reading") {
+
+        list =
+          document.getElementById("readingList");
+
+        search =
+          document
+            .getElementById("readingSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+        category =
+          document
+            .getElementById("readingCategory")
+            .value;
+
+      } else {
+
+        list =
+          document.getElementById("finishedList");
+
+        search =
+          document
+            .getElementById("finishedSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+        category =
+          document
+            .getElementById("finishedCategory")
+            .value;
+
+      }
+
+
+      const filteredBooks =
+        books.filter(function(book) {
+
+          const correctStatus =
+            type === "reading"
+              ? book.status === "reading"
+              : book.status === "finished";
+
+
+          const title =
+            String(book.title || "")
+              .toLowerCase();
+
+          const author =
+            String(book.author || "")
+              .toLowerCase();
+
+
+          const correctSearch =
+            title.includes(search) ||
+            author.includes(search);
+
+
+          const correctCategory =
+            category === "all" ||
+            book.category === category;
+
+
+          return (
+            correctStatus &&
+            correctSearch &&
+            correctCategory
+          );
+
+        });
+
+
+      list.innerHTML = "";
+
+
+      if (filteredBooks.length === 0) {
+
+        list.innerHTML =
+          '<div class="empty">沒有找到書籍</div>';
+
+        updateCounts();
+
+        return;
+
+      }
+
+
+      filteredBooks.forEach(function(book) {
+
+        const bookElement =
+          document.createElement("div");
+
+        bookElement.className = "book";
+
+
+        const title =
+          document.createElement("div");
+
+        title.className = "book-title";
+
+        title.textContent =
+          "《" + book.title + "》";
+
+
+        const author =
+          document.createElement("div");
+
+        author.className = "book-author";
+
+        author.textContent =
+          book.author;
+
+
+        const category =
+          document.createElement("div");
+
+        category.className =
+          "book-category";
+
+        category.textContent =
+          book.category;
+
+
+        const actions =
+          document.createElement("div");
+
+        actions.className =
+          "book-actions";
+
+
+        const statusButton =
+          document.createElement("button");
+
+        statusButton.type = "button";
+
+        statusButton.textContent =
+          type === "reading"
+            ? "✓ 已讀完"
+            : "↩ 移回待閱";
+
+
+        statusButton.addEventListener(
+          "click",
+          function() {
+
+            changeStatus(book.id);
+
+          }
+        );
+
+
+        const deleteButton =
+          document.createElement("button");
+
+        deleteButton.type = "button";
+
+        deleteButton.textContent =
+          "🗑 刪除";
+
+
+        deleteButton.addEventListener(
+          "click",
+          function() {
+
+            deleteBook(book.id);
+
+          }
+        );
+
+
+        actions.appendChild(statusButton);
+        actions.appendChild(deleteButton);
+
+
+        bookElement.appendChild(title);
+        bookElement.appendChild(author);
+        bookElement.appendChild(category);
+        bookElement.appendChild(actions);
+
+
+        list.appendChild(bookElement);
+
+      });
+
+
+      updateCounts();
+
+    }
+
+
+    // =========================
+    // 新增視窗
+    // =========================
+
+    function openAddModal() {
+
+      document
+        .getElementById("addModal")
+        .classList.add("active");
+
+
+      document
+        .getElementById("bookTitle")
+        .value = "";
+
+
+      document
+        .getElementById("bookAuthor")
+        .value = "";
+
+
+      document
+        .getElementById("bookCategory")
+        .value = "文學小說";
+
+
+      document
+        .getElementById("bookTitle")
+        .focus();
+
+    }
+
+
+    function closeAddModal() {
+
+      document
+        .getElementById("addModal")
+        .classList.remove("active");
+
+    }
+
+
+    // =========================
+    // 新增書籍
+    // =========================
+
+    function addBook() {
+
+      const title =
+        document
+          .getElementById("bookTitle")
+          .value
+          .trim();
+
+
+      const author =
+        document
+          .getElementById("bookAuthor")
+          .value
+          .trim();
+
+
+      const category =
+        document
+          .getElementById("bookCategory")
+          .value;
+
+
+      if (!title || !author) {
+
+        alert("請填寫書名和作者。");
+
+        return;
+
+      }
+
+
+      const newBook = {
+
+        id: Date.now(),
+
+        title: title,
+
+        author: author,
+
+        category: category,
+
+        status: "reading"
+
+      };
+
+
+      books.push(newBook);
+
+      saveBooks();
+
+      closeAddModal();
+
+      renderBooks("reading");
+
+    }
+
+
+    // =========================
+    // 改變閱讀狀態
+    // =========================
+
+    function changeStatus(id) {
+
+      const book =
+        books.find(function(item) {
+
+          return item.id === id;
+
+        });
+
+
+      if (!book) return;
+
+
+      if (book.status === "reading") {
+
+        book.status = "finished";
+
+      } else {
+
+        book.status = "reading";
+
+      }
+
+
+      saveBooks();
+
+
+      if (book.status === "finished") {
+
+        renderBooks("reading");
+
+      } else {
+
+        renderBooks("finished");
+
+      }
+
+    }
+
+
+    // =========================
+    // 刪除
+    // =========================
+
+    function deleteBook(id) {
+
+      const book =
+        books.find(function(item) {
+
+          return item.id === id;
+
+        });
+
+
+      if (!book) return;
+
+
+      const confirmed =
+        confirm(
+          "確定要刪除《" +
+          book.title +
+          "》嗎？"
+        );
+
+
+      if (!confirmed) return;
+
+
+      const oldStatus =
+        book.status;
+
+
+      books =
+        books.filter(function(item) {
+
+          return item.id !== id;
+
+        });
+
+
+      saveBooks();
+
+      renderBooks(oldStatus);
+
+    }
+
+
+    // =========================
+    // 數量
+    // =========================
+
+    function updateCounts() {
+
+      const readingCount =
+        books.filter(function(book) {
+
+          return book.status === "reading";
+
+        }).length;
+
+
+      const finishedCount =
+        books.filter(function(book) {
+
+          return book.status === "finished";
+
+        }).length;
+
+
+      document
+        .getElementById("readingCount")
+        .textContent =
+        "共 " + readingCount + " 本";
+
+
+      document
+        .getElementById("finishedCount")
+        .textContent =
+        "共 " + finishedCount + " 本";
+
+    }
+
+
+    // =========================
+    // 匯入書單
+    // =========================
+
+    function importBooks() {
+
+      if (
+        typeof importedBooks === "undefined"
+      ) {
+
+        alert(
+          "找不到 books.js，請確認 books.js 和 index.html 在同一個資料夾。"
+        );
+
+        return;
+
+      }
+
+
+      let addedCount = 0;
+
+
+      importedBooks.forEach(function(book) {
+
+        const exists =
+          books.some(function(existingBook) {
+
+            return (
+              existingBook.title === book.title &&
+              existingBook.author === book.author
+            );
+
+          });
+
+
+        if (!exists) {
+
+          books.push({
+
+            id: Date.now() + Math.random(),
+
+            title: book.title,
+
+            author: book.author,
+
+            category:
+              book.category || "其他",
+
+            status:
+              book.status || "reading"
+
+          });
+
+
+          addedCount++;
+
+        }
+
+      });
+
+
+      saveBooks();
+
+      renderBooks("reading");
+
+
+      alert(
+        "匯入完成！新增 " +
+        addedCount +
+        " 本書。"
+      );
+
+    }
+
+
+    // =========================
+    // 按鈕
+    // =========================
+
+    document
+      .getElementById("goReading")
+      .addEventListener(
+        "click",
+        function() {
+
+          showPage("reading");
+
+          renderBooks("reading");
+
+        }
+      );
+
+
+    document
+      .getElementById("goFinished")
+      .addEventListener(
+        "click",
+        function() {
+
+          showPage("finished");
+
+          renderBooks("finished");
+
+        }
+      );
+
+
+    document
+      .getElementById("backReading")
+      .addEventListener(
+        "click",
+        function() {
+
+          showPage("home");
+
+        }
+      );
+
+
+    document
+      .getElementById("backFinished")
+      .addEventListener(
+        "click",
+        function() {
+
+          showPage("home");
+
+        }
+      );
+
+
+    document
+      .getElementById("openAdd")
+      .addEventListener(
+        "click",
+        function() {
+
+          openAddModal();
+
+        }
+      );
+
+
+    document
+      .getElementById("cancelAdd")
+      .addEventListener(
+        "click",
+        function() {
+
+          closeAddModal();
+
+        }
+      );
+
+
+    document
+      .getElementById("saveBook")
+      .addEventListener(
+        "click",
+        function() {
+
+          addBook();
+
+        }
+      );
+
+
+    document
+      .getElementById("importBooks")
+      .addEventListener(
+        "click",
+        function() {
+
+          importBooks();
+
+        }
+      );
+
+
+    // =========================
+    // 搜尋與分類
+    // =========================
+
+    document
+      .getElementById("readingSearch")
+      .addEventListener(
+        "input",
+        function() {
+
+          renderBooks("reading");
+
+        }
+      );
+
+
+    document
+      .getElementById("readingCategory")
+      .addEventListener(
+        "change",
+        function() {
+
+          renderBooks("reading");
+
+        }
+      );
+
+
+    document
+      .getElementById("finishedSearch")
+      .addEventListener(
+        "input",
+        function() {
+
+          renderBooks("finished");
+
+        }
+      );
+
+
+    document
+      .getElementById("finishedCategory")
+      .addEventListener(
+        "change",
+        function() {
+
+          renderBooks("finished");
+
+        }
+      );
+
+
+    // =========================
+    // 初始化
+    // =========================
+
+    updateCounts();
+
+  </script>  <!-- =========================
+       書單資料
+  ========================== --> 
+<script src="books-data.js"></script>
+<script src="books.js"></script>
+
+</body>
+    </html>
